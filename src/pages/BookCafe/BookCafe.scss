@@ -1,0 +1,41 @@
+// Action
+.popover-action:hover .circle-hover {
+  border-color: #f3a952;
+}
+
+.popover-action:hover .circle-hover div {
+  background-color: #f3a952;
+  opacity: 1;
+}
+
+.title {
+  transform: scale(0);
+}
+
+.popover-action:hover .title {
+  transform: scale(1);
+}
+
+.volume-slider {
+  height: 12px !important;
+  color: #f3a952 !important;
+  width: 129px !important;
+  .MuiSlider-rail {
+    color: #4e5054;
+  }
+  .MuiSlider-thumb {
+    color: white;
+    width: 18px;
+    height: 18px;
+  }
+}
+.background-video-cafe {
+  height: 100vh !important;
+  left: 50% !important;
+  min-height: 100vh !important;
+  min-width: 100vw !important;
+  position: absolute !important;
+  top: 50% !important;
+  -webkit-transform: translate(-50%, -50%) !important;
+  transform: translate(-50%, -50%) !important;
+}

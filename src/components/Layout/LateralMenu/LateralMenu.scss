@@ -1,0 +1,67 @@
+.volume-slider {
+    height: 12px !important;
+    color: #f3a952 !important;
+    width: 180px !important;
+    .MuiSlider-rail {
+        color: #4e5054;
+    }
+    .MuiSlider-thumb {
+        color: white;
+        width: 18px;
+        height: 18px;
+    }
+}
+
+.volume-noise--traffic {
+    height: 16px !important;
+    color: #f3a952 !important;
+    width: 140px !important;
+    .MuiSlider-rail {
+        color: #4e5054;
+    }
+    .MuiSlider-thumb {
+        background-image: url("../../../../public/assets/img/noise/citytrafficactive.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: transparent;
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.volume-noise--rain {
+    height: 16px !important;
+    color: #f3a952 !important;
+    width: 140px !important;
+    .MuiSlider-rail {
+        color: #4e5054;
+    }
+    .MuiSlider-thumb {
+        background-image: url("../../../../public/assets/img/noise/raincity.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: transparent;
+        width: 24px;
+        height: 24px;
+    }
+}
+.volume-noise--keyboard {
+    height: 16px !important;
+    color: #f3a952 !important;
+    width: 140px !important;
+    .MuiSlider-rail {
+        color: #4e5054;
+    }
+    .MuiSlider-thumb {
+        background-image: url("../../../../public/assets/img/noise/keyboard.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: transparent;
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.change-set::-webkit-scrollbar {
+    display: none;
+}
