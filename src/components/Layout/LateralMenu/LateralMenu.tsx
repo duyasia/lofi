@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import images from "../../../assets/images/images";
 import "./LateralMenu.scss";
 
@@ -18,11 +18,6 @@ const LateralMenu: React.FC = () => {
   const [change, setChange] = useState<boolean>(false);
   const [product, setProduct] = useState<boolean>(false);
 
-  // Mood selection states
-  const [clickSleep, setClickSleep] = useState<boolean>(false);
-  const [clickJazzy, setClickJazzy] = useState<boolean>(false);
-  const [clickChill, setClickChill] = useState<boolean>(true);
-
   // Audio context values
   const {
     volumeRain,
@@ -40,7 +35,17 @@ const LateralMenu: React.FC = () => {
     volumeSong,
     setVolumeSong,
     setSong,
+    song,
   } = useAudio();
+
+  // Derive active mood from current song array
+  const activeMood = useMemo(() => {
+    if (!song || song.length === 0) return "chill";
+    const firstSrc = song[0]?.src || "";
+    if (firstSrc === sleep[0]?.src) return "sleep";
+    if (firstSrc === jazzy[0]?.src) return "jazzy";
+    return "chill";
+  }, [song]);
 
   // Close all panels except the one being opened
   const closeAllPanels = () => {
@@ -114,26 +119,17 @@ const LateralMenu: React.FC = () => {
     setVolumeSong(vol);
   };
 
-  // Mood click handlers
+  // Mood click handlers - simplified since we derive state from song
   const handleClickSleep = () => {
     setSong(sleep);
-    setClickSleep(true);
-    setClickJazzy(false);
-    setClickChill(false);
   };
 
   const handleClickJazzy = () => {
     setSong(jazzy);
-    setClickJazzy(true);
-    setClickSleep(false);
-    setClickChill(false);
   };
 
   const handleClickChill = () => {
     setSong(chill);
-    setClickChill(true);
-    setClickJazzy(false);
-    setClickSleep(false);
   };
 
   return (
@@ -201,9 +197,9 @@ const LateralMenu: React.FC = () => {
       {/* Panels */}
       <MoodPanel
         isOpen={mood}
-        clickSleep={clickSleep}
-        clickJazzy={clickJazzy}
-        clickChill={clickChill}
+        clickSleep={activeMood === "sleep"}
+        clickJazzy={activeMood === "jazzy"}
+        clickChill={activeMood === "chill"}
         volumeSong={volumeSong}
         volumeTraffic={volumeTraffic}
         volumeRain={volumeRain}

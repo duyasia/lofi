@@ -1,16 +1,19 @@
 import { AudioProvider } from "./AudioContext";
 import { VideoProvider } from "./VideoContext";
 import { UIProvider } from "./UIContext";
+import { PomodoroProvider } from "./PomodoroContext";
 
 /**
  * StoreProvider - Composes all domain-specific providers
- * Order: UIProvider > VideoProvider > AudioProvider (innermost has audio)
+ * Order: UIProvider > VideoProvider > AudioProvider > PomodoroProvider (innermost)
  */
 function Provider({ children }: { children: React.ReactNode }) {
   return (
     <UIProvider>
       <VideoProvider>
-        <AudioProvider>{children}</AudioProvider>
+        <AudioProvider>
+          <PomodoroProvider>{children}</PomodoroProvider>
+        </AudioProvider>
       </VideoProvider>
     </UIProvider>
   );

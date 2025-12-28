@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import VideoBackground from "../VideoBackground";
 import { useVideo, useAudio } from "../../../store";
+import { DEFAULT_VIDEOS } from "../../../data/dataScenes";
 
 // Mock the store hooks
 jest.mock("../../../store", () => ({
@@ -16,6 +17,17 @@ const mockVideos = {
   rainyNight: "/test-rainy-night.mp4",
 };
 
+// Default mock for VideoContext with scene navigation
+const defaultVideoMock = {
+  toggled: true,
+  fullscreen: false,
+  setToggled: jest.fn(),
+  setFullscreen: jest.fn(),
+  currentScene: "exterior",
+  currentVideos: DEFAULT_VIDEOS,
+  changeScene: jest.fn(),
+};
+
 const mockUseVideo = useVideo as jest.MockedFunction<typeof useVideo>;
 const mockUseAudio = useAudio as jest.MockedFunction<typeof useAudio>;
 
@@ -23,12 +35,7 @@ describe("VideoBackground", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     // Default mock values
-    mockUseVideo.mockReturnValue({
-      toggled: true,
-      fullscreen: false,
-      setToggled: jest.fn(),
-      setFullscreen: jest.fn(),
-    });
+    mockUseVideo.mockReturnValue({ ...defaultVideoMock });
     mockUseAudio.mockReturnValue({
       rain: false,
       traffic: false,
@@ -52,6 +59,12 @@ describe("VideoBackground", () => {
       setCityTraffic: jest.fn(),
       setSoundKey: jest.fn(),
       setSong: jest.fn(),
+      toggleRain: jest.fn(),
+      changeRainVolume: jest.fn(),
+      toggleTraffic: jest.fn(),
+      changeTrafficVolume: jest.fn(),
+      toggleKeyboard: jest.fn(),
+      changeKeyboardVolume: jest.fn(),
     });
   });
 
@@ -62,7 +75,7 @@ describe("VideoBackground", () => {
   });
 
   it("shows day video when toggled=true, rain=false", () => {
-    mockUseVideo.mockReturnValue({ toggled: true, fullscreen: false, setToggled: jest.fn(), setFullscreen: jest.fn() });
+    mockUseVideo.mockReturnValue({ ...defaultVideoMock, toggled: true });
     mockUseAudio.mockReturnValue({ rain: false } as ReturnType<typeof useAudio>);
 
     const { container } = render(<VideoBackground videos={mockVideos} />);
@@ -71,7 +84,7 @@ describe("VideoBackground", () => {
   });
 
   it("shows rainyDay video when toggled=true, rain=true", () => {
-    mockUseVideo.mockReturnValue({ toggled: true, fullscreen: false, setToggled: jest.fn(), setFullscreen: jest.fn() });
+    mockUseVideo.mockReturnValue({ ...defaultVideoMock, toggled: true });
     mockUseAudio.mockReturnValue({ rain: true } as ReturnType<typeof useAudio>);
 
     const { container } = render(<VideoBackground videos={mockVideos} />);
@@ -80,7 +93,7 @@ describe("VideoBackground", () => {
   });
 
   it("shows night video when toggled=false, rain=false", () => {
-    mockUseVideo.mockReturnValue({ toggled: false, fullscreen: false, setToggled: jest.fn(), setFullscreen: jest.fn() });
+    mockUseVideo.mockReturnValue({ ...defaultVideoMock, toggled: false });
     mockUseAudio.mockReturnValue({ rain: false } as ReturnType<typeof useAudio>);
 
     const { container } = render(<VideoBackground videos={mockVideos} />);
@@ -89,7 +102,7 @@ describe("VideoBackground", () => {
   });
 
   it("shows rainyNight video when toggled=false, rain=true", () => {
-    mockUseVideo.mockReturnValue({ toggled: false, fullscreen: false, setToggled: jest.fn(), setFullscreen: jest.fn() });
+    mockUseVideo.mockReturnValue({ ...defaultVideoMock, toggled: false });
     mockUseAudio.mockReturnValue({ rain: true } as ReturnType<typeof useAudio>);
 
     const { container } = render(<VideoBackground videos={mockVideos} />);
@@ -98,7 +111,7 @@ describe("VideoBackground", () => {
   });
 
   it("has correct class when fullscreen=true", () => {
-    mockUseVideo.mockReturnValue({ toggled: true, fullscreen: true, setToggled: jest.fn(), setFullscreen: jest.fn() });
+    mockUseVideo.mockReturnValue({ ...defaultVideoMock, fullscreen: true });
     mockUseAudio.mockReturnValue({ rain: false } as ReturnType<typeof useAudio>);
 
     const { container } = render(<VideoBackground videos={mockVideos} />);
@@ -107,7 +120,7 @@ describe("VideoBackground", () => {
   });
 
   it("has correct class when fullscreen=false", () => {
-    mockUseVideo.mockReturnValue({ toggled: true, fullscreen: false, setToggled: jest.fn(), setFullscreen: jest.fn() });
+    mockUseVideo.mockReturnValue({ ...defaultVideoMock, fullscreen: false });
     mockUseAudio.mockReturnValue({ rain: false } as ReturnType<typeof useAudio>);
 
     const { container } = render(<VideoBackground videos={mockVideos} />);
@@ -116,7 +129,7 @@ describe("VideoBackground", () => {
   });
 
   it("updates video when state changes", () => {
-    mockUseVideo.mockReturnValue({ toggled: true, fullscreen: false, setToggled: jest.fn(), setFullscreen: jest.fn() });
+    mockUseVideo.mockReturnValue({ ...defaultVideoMock, toggled: true });
     mockUseAudio.mockReturnValue({ rain: false } as ReturnType<typeof useAudio>);
 
     const { container, rerender } = render(<VideoBackground videos={mockVideos} />);
@@ -124,7 +137,7 @@ describe("VideoBackground", () => {
     expect(source?.getAttribute("src")).toBe("/test-day.mp4");
 
     // Change to night
-    mockUseVideo.mockReturnValue({ toggled: false, fullscreen: false, setToggled: jest.fn(), setFullscreen: jest.fn() });
+    mockUseVideo.mockReturnValue({ ...defaultVideoMock, toggled: false });
     rerender(<VideoBackground videos={mockVideos} />);
     source = container.querySelector("source");
     expect(source?.getAttribute("src")).toBe("/test-night.mp4");
