@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { chill, jazzy, sleep } from "../../../data/dataSong";
 import { StoreContext } from "../../../store";
 
 const Player = () => {
@@ -19,15 +18,18 @@ const Player = () => {
     } else {
       audioRef.current.pause();
     }
+  }, [playing]);
+
+  useEffect(() => {
     audioRef.current.volume = volumeSong / 100;
-  });
+  }, [volumeSong]);
   useEffect(() => {
     setCurrentSong(song[0]);
   }, [song]);
 
   const handleClickPrev = () => {
-    const index = song.findIndex((x) => x.name == currentSong.name);
-    if (index == 0) {
+    const index = song.findIndex((x) => x.name === currentSong.name);
+    if (index === 0) {
       setCurrentSong(song[song.length - 1]);
     } else {
       setCurrentSong(song[index - 1]);
@@ -35,8 +37,8 @@ const Player = () => {
     setPlaying(true);
   };
   const handleClickNext = () => {
-    const index = song.findIndex((x) => x.name == currentSong.name);
-    if (index == song.length - 1) {
+    const index = song.findIndex((x) => x.name === currentSong.name);
+    if (index === song.length - 1) {
       setCurrentSong(song[0]);
     } else {
       setCurrentSong(song[index + 1]);

@@ -101,7 +101,7 @@ const Header = () => {
         </button>
         <div className="hidden md:flex items-center cursor-pointer gap-[8px] bg-gradient-to-l px-[16px] py-[5px] rounded-[8px] from-[#e18660e6] to-[#f4ca5de6]">
           <h3 className="text-[32px] leading-[36px]">🎉</h3>
-          <a href="https://zalo.me/351569472972178908" target="_blank">
+          <a href="https://zalo.me/351569472972178908" target="_blank" rel="noreferrer noopener">
             <p className="font-bold leading-[16px] text-white text-[12px]">
               ĐĂNG KÝ THÀNH VIÊN
               <br />
@@ -141,6 +141,7 @@ const Header = () => {
                   <a
                     href={item.url}
                     target="_blank"
+                    rel="noreferrer noopener"
                     className="flex gap-[16px]"
                   >
                     <img src={item.icon} alt="iconSetting" />

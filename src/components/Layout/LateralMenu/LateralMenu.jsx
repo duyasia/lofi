@@ -6,7 +6,6 @@ import ReactAudioPlayer from "react-audio-player";
 import Slider from "@mui/material/Slider";
 import { StoreContext } from "../../../store";
 import { chill, jazzy, sleep } from "../../../data/dataSong";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 
 
 const LateralMenu = () => {
