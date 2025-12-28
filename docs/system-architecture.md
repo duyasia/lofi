@@ -20,7 +20,7 @@
 ## State Management (Contexts)
 - **AudioContext**: Quản lý âm lượng, danh sách nhạc, bài hát hiện tại, và các hiệu ứng âm thanh môi trường.
 - **UIContext**: Quản lý việc hiển thị các panels, theme, và các trạng thái giao diện khác.
-- **VideoContext**: Quản lý video background hiện tại và logic chuyển đổi cảnh.
+- **VideoContext**: Quản lý video background hiện tại và logic chuyển đổi cảnh (Scene Navigation). Hỗ trợ trạng thái Day/Night và Rainy cho từng cảnh.
 
 ## Testing Strategy
 - **Unit Tests**: Kiểm tra logic trong các hàm helper và hooks.

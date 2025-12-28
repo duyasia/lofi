@@ -18,8 +18,8 @@ This project is a Lofi music player application built with React, TypeScript, an
     - `LateralMenu/panels/`: Different configuration panels (Mood, Playlist, ChangeSet, Productivity)
 - `pages/`: Page-level components (Home, BookCafe)
 - `store/`: Context-based state management
-- `data/`: Static data (songs, etc.)
-- `assets/`: Images and icons
+- `data/`: Static data (songs, scenes, etc.)
+- `assets/`: Images, icons, and thumbnails
 - `types/`: TypeScript type definitions
 
 ### Key Components
@@ -55,3 +55,4 @@ This project is a Lofi music player application built with React, TypeScript, an
 - Completed TypeScript migration for the entire codebase.
 - Implemented comprehensive test coverage for lateral menu panels (Phase 01 Panel Tests).
 - Refactored Context API for better performance and lazy loading.
+- **Phase 01 Scene Navigation**: Added `src/data/dataScenes.ts` for scene definitions, extended `VideoContext` to support dynamic scene switching, and updated `ChangeSetPanel` with interactive scene selection.

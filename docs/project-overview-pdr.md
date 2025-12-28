@@ -25,3 +25,4 @@ Lofi là một ứng dụng web nghe nhạc thư giãn, tập trung vào việc 
 - 100% Core Contexts được test.
 - 100% Lateral Menu Panels được test (Phase 01 complete).
 - Ứng dụng vượt qua các bài kiểm tra E2E cơ bản.
+- **Phase 01 Scene Navigation**: Cho phép người dùng chuyển đổi mượt mà giữa các bối cảnh (Exterior, Book Cafe).
