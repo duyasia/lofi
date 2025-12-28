@@ -1,22 +1,36 @@
 import React from "react";
-import type { PanelProps } from "types/index";
+import type { PanelProps, TimerMode } from "types/index";
+import { usePomodoro } from "../../../../store";
 
-interface ProductivityItem {
-  icon: string;
-  label: string;
-}
+/** Format seconds to mm:ss display */
+const formatTime = (seconds: number): string => {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+};
 
-const PRODUCTIVITY_ITEMS: ProductivityItem[] = [
-  { icon: "./assets/img/product/play.svg", label: "Start Session" },
-  { icon: "./assets/img/product/tomato.svg", label: "Timer and Tasks" },
-  { icon: "./assets/img/product/notes.svg", label: "Notes" },
-  { icon: "./assets/img/product/history.svg", label: "History" },
-];
+const MODE_LABELS: Record<TimerMode, string> = {
+  work: "Focus Time",
+  shortBreak: "Short Break",
+  longBreak: "Long Break",
+};
 
 /**
- * ProductivityPanel - Productivity tools panel (locked features)
+ * ProductivityPanel - Pomodoro timer with controls
  */
 const ProductivityPanel: React.FC<PanelProps> = ({ isOpen }) => {
+  const {
+    mode,
+    status,
+    timeLeft,
+    sessionsCompleted,
+    start,
+    pause,
+    resume,
+    reset,
+    skip,
+  } = usePomodoro();
+
   if (!isOpen) return null;
 
   return (
@@ -27,26 +41,70 @@ const ProductivityPanel: React.FC<PanelProps> = ({ isOpen }) => {
             Productivity
           </h4>
         </div>
-        <div className="relative">
-          {PRODUCTIVITY_ITEMS.map((item) => (
-            <div key={item.label}>
-              <div className="bg-[hsla(0,0%,100%,.05)] flex items-center rounded-[13px] cursor-pointer flex-row mb-[12px] py-[8px] pl-[16px] pr-[8px]">
-                <img
-                  className="brightness-[9] opacity-20 w-[28px] h-[28px]"
-                  src={item.icon}
-                  alt={item.label}
-                />
-                <h6 className="text-[16px] font-[500] leading-[16px] mx-[16px] text-white flex-1">
-                  {item.label}
-                </h6>
-                <img
-                  className="w-[24px] h-[24px] opacity-10"
-                  src="./assets/img/product/lock.svg"
-                  alt="lock"
-                />
-              </div>
-            </div>
-          ))}
+
+        {/* Timer Display */}
+        <div className="text-center my-4">
+          <div className="text-[14px] text-white/70">{MODE_LABELS[mode]}</div>
+          <div className="text-[48px] font-bold text-white font-mono">
+            {formatTime(timeLeft)}
+          </div>
+          <div className="text-[12px] text-white/50">
+            Sessions: {sessionsCompleted}
+          </div>
+        </div>
+
+        {/* Controls */}
+        <div className="flex justify-center gap-4 mb-4">
+          {status === "idle" && (
+            <button
+              onClick={start}
+              className="bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-full transition-colors"
+              aria-label="Start timer"
+            >
+              Start
+            </button>
+          )}
+          {status === "running" && (
+            <button
+              onClick={pause}
+              className="bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-full transition-colors"
+              aria-label="Pause timer"
+            >
+              Pause
+            </button>
+          )}
+          {status === "paused" && (
+            <>
+              <button
+                onClick={resume}
+                className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-full transition-colors"
+                aria-label="Resume timer"
+              >
+                Resume
+              </button>
+              <button
+                onClick={reset}
+                className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full transition-colors"
+                aria-label="Reset timer"
+              >
+                Reset
+              </button>
+            </>
+          )}
+          {status !== "idle" && (
+            <button
+              onClick={skip}
+              className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full transition-colors"
+              aria-label="Skip to next"
+            >
+              Skip
+            </button>
+          )}
+        </div>
+
+        {/* Notes and History - placeholder for future */}
+        <div className="opacity-50 text-[14px] text-white text-center pb-2">
+          Notes &amp; History coming soon
         </div>
       </div>
     </div>

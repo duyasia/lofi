@@ -110,3 +110,19 @@ export interface MoodPanelProps {
 export interface PanelProps {
   isOpen: boolean;
 }
+
+// Pomodoro Timer types
+export type TimerMode = 'work' | 'shortBreak' | 'longBreak';
+export type TimerStatus = 'idle' | 'running' | 'paused';
+
+export interface PomodoroContextType {
+  mode: TimerMode;
+  status: TimerStatus;
+  timeLeft: number;
+  sessionsCompleted: number;
+  start: () => void;
+  pause: () => void;
+  resume: () => void;
+  reset: () => void;
+  skip: () => void;
+}
