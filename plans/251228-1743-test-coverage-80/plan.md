@@ -39,7 +39,7 @@ Increase test coverage from 59.24% → 80%+ statements, 31.09% → 60%+ branches
 | # | Phase | Status | Effort | Link |
 |---|-------|--------|--------|------|
 | 1 | Panel Unit Tests | Done (2025-12-28) | 1.5h | [phase-01](./phase-01-panel-tests.md) |
-| 2 | LateralMenu Tests | Pending | 1.5h | [phase-02](./phase-02-lateralmenu-tests.md) |
+| 2 | LateralMenu Tests | Done (2025-12-28) | 1.5h | [phase-02](./phase-02-lateralmenu-tests.md) |
 | 3 | VideoBackground & ActionPopover Tests | Pending | 1h | [phase-03](./phase-03-video-action-tests.md) |
 | 4 | Page Tests (Home/BookCafe) | Pending | 1h | [phase-04](./phase-04-page-tests.md) |
 | 5 | Coverage Gaps Cleanup | Pending | 1h | [phase-05](./phase-05-coverage-cleanup.md) |
