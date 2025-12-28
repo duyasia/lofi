@@ -115,14 +115,59 @@ export interface PanelProps {
 export type TimerMode = 'work' | 'shortBreak' | 'longBreak';
 export type TimerStatus = 'idle' | 'running' | 'paused';
 
+export interface TimerDurations {
+  work: number;      // seconds
+  shortBreak: number;
+  longBreak: number;
+}
+
+export interface Task {
+  id: string;
+  text: string;
+  completed: boolean;
+  createdAt: number;
+}
+
+export interface SessionRecord {
+  id: string;
+  mode: TimerMode;
+  duration: number;  // seconds
+  completedAt: number;
+}
+
+export interface PomodoroSettings {
+  durations: TimerDurations;
+  autoStartBreaks: boolean;
+  autoStartWork: boolean;
+}
+
 export interface PomodoroContextType {
+  // Timer state
   mode: TimerMode;
   status: TimerStatus;
   timeLeft: number;
   sessionsCompleted: number;
+  // Timer actions
   start: () => void;
   pause: () => void;
   resume: () => void;
   reset: () => void;
   skip: () => void;
+  // Settings
+  settings: PomodoroSettings;
+  updateDuration: (mode: TimerMode, minutes: number) => void;
+  // Tasks
+  tasks: Task[];
+  addTask: (text: string) => void;
+  toggleTask: (id: string) => void;
+  deleteTask: (id: string) => void;
+  clearCompletedTasks: () => void;
+  // Notes
+  notes: string;
+  updateNotes: (text: string) => void;
+  // History
+  sessionHistory: SessionRecord[];
+  getTodayStats: () => { sessions: number; focusTime: number };
+  getWeekStats: () => { date: string; focusTime: number }[];
+  clearHistory: () => void;
 }

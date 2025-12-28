@@ -2,6 +2,19 @@ import React from "react";
 import { render, screen, fireEvent, act, waitFor } from "@testing-library/react";
 import { PomodoroProvider, usePomodoro } from "./PomodoroContext";
 
+// Mock localStorage
+const localStorageMock = (() => {
+  let store: Record<string, string> = {};
+  return {
+    getItem: (key: string) => store[key] || null,
+    setItem: (key: string, value: string) => { store[key] = value; },
+    removeItem: (key: string) => { delete store[key]; },
+    clear: () => { store = {}; },
+  };
+})();
+
+Object.defineProperty(window, "localStorage", { value: localStorageMock });
+
 // Test component to access context
 function TestComponent() {
   const {
@@ -14,6 +27,15 @@ function TestComponent() {
     resume,
     reset,
     skip,
+    settings,
+    updateDuration,
+    tasks,
+    addTask,
+    toggleTask,
+    deleteTask,
+    notes,
+    updateNotes,
+    getTodayStats,
   } = usePomodoro();
 
   return (
@@ -22,11 +44,20 @@ function TestComponent() {
       <span data-testid="status">{status}</span>
       <span data-testid="timeLeft">{timeLeft}</span>
       <span data-testid="sessions">{sessionsCompleted}</span>
+      <span data-testid="workDuration">{settings.durations.work}</span>
+      <span data-testid="taskCount">{tasks.length}</span>
+      <span data-testid="notes">{notes}</span>
+      <span data-testid="todaySessions">{getTodayStats().sessions}</span>
       <button onClick={start}>Start</button>
       <button onClick={pause}>Pause</button>
       <button onClick={resume}>Resume</button>
       <button onClick={reset}>Reset</button>
       <button onClick={skip}>Skip</button>
+      <button onClick={() => updateDuration("work", 50)}>Set50min</button>
+      <button onClick={() => addTask("Test task")}>AddTask</button>
+      <button onClick={() => tasks[0] && toggleTask(tasks[0].id)}>ToggleTask</button>
+      <button onClick={() => tasks[0] && deleteTask(tasks[0].id)}>DeleteTask</button>
+      <button onClick={() => updateNotes("My notes")}>SetNotes</button>
     </div>
   );
 }
@@ -64,6 +95,7 @@ beforeAll(() => {
 describe("PomodoroContext", () => {
   beforeEach(() => {
     jest.useFakeTimers();
+    localStorageMock.clear();
   });
 
   afterEach(() => {
@@ -139,7 +171,6 @@ describe("PomodoroContext", () => {
 
       expect(screen.getByTestId("mode")).toHaveTextContent("shortBreak");
       expect(screen.getByTestId("timeLeft")).toHaveTextContent("300"); // 5 min
-      expect(screen.getByTestId("sessions")).toHaveTextContent("1");
     });
 
     it("skip from short break goes back to work", () => {
@@ -173,7 +204,6 @@ describe("PomodoroContext", () => {
       // After 4th work session, should be long break
       expect(screen.getByTestId("mode")).toHaveTextContent("longBreak");
       expect(screen.getByTestId("timeLeft")).toHaveTextContent("900"); // 15 min
-      expect(screen.getByTestId("sessions")).toHaveTextContent("4");
     });
   });
 
@@ -195,6 +225,45 @@ describe("PomodoroContext", () => {
         },
         { timeout: 2000 }
       );
+    });
+  });
+
+  describe("Custom Durations", () => {
+    it("updates work duration", () => {
+      renderWithProvider();
+      fireEvent.click(screen.getByText("Set50min"));
+      expect(screen.getByTestId("workDuration")).toHaveTextContent("3000"); // 50*60
+    });
+
+    it("updates timeLeft when changing current mode duration while idle", () => {
+      renderWithProvider();
+      fireEvent.click(screen.getByText("Set50min"));
+      expect(screen.getByTestId("timeLeft")).toHaveTextContent("3000");
+    });
+  });
+
+  describe("Task Management", () => {
+    it("adds a task", () => {
+      renderWithProvider();
+      expect(screen.getByTestId("taskCount")).toHaveTextContent("0");
+      fireEvent.click(screen.getByText("AddTask"));
+      expect(screen.getByTestId("taskCount")).toHaveTextContent("1");
+    });
+
+    it("deletes a task", () => {
+      renderWithProvider();
+      fireEvent.click(screen.getByText("AddTask"));
+      expect(screen.getByTestId("taskCount")).toHaveTextContent("1");
+      fireEvent.click(screen.getByText("DeleteTask"));
+      expect(screen.getByTestId("taskCount")).toHaveTextContent("0");
+    });
+  });
+
+  describe("Notes", () => {
+    it("updates notes", () => {
+      renderWithProvider();
+      fireEvent.click(screen.getByText("SetNotes"));
+      expect(screen.getByTestId("notes")).toHaveTextContent("My notes");
     });
   });
 

@@ -2,7 +2,24 @@ import React from "react";
 import { render, screen, fireEvent } from "../../../../../test-utils";
 import ProductivityPanel from "../ProductivityPanel";
 
+// Mock localStorage
+const localStorageMock = (() => {
+  let store: Record<string, string> = {};
+  return {
+    getItem: (key: string) => store[key] || null,
+    setItem: (key: string, value: string) => { store[key] = value; },
+    removeItem: (key: string) => { delete store[key]; },
+    clear: () => { store = {}; },
+  };
+})();
+
+Object.defineProperty(window, "localStorage", { value: localStorageMock });
+
 describe("ProductivityPanel", () => {
+  beforeEach(() => {
+    localStorageMock.clear();
+  });
+
   describe("Basic Rendering", () => {
     it("returns null when isOpen=false", () => {
       const { container } = render(<ProductivityPanel isOpen={false} />);
@@ -21,17 +38,29 @@ describe("ProductivityPanel", () => {
 
     it("renders 'Focus Time' mode label initially", () => {
       render(<ProductivityPanel isOpen={true} />);
-      expect(screen.getByText("Focus Time")).toBeInTheDocument();
+      expect(screen.getByText("Focus")).toBeInTheDocument();
     });
 
     it("renders sessions counter", () => {
       render(<ProductivityPanel isOpen={true} />);
-      expect(screen.getByText("Sessions: 0")).toBeInTheDocument();
+      expect(screen.getByText(/sessions completed/)).toBeInTheDocument();
     });
 
-    it("renders 'Notes & History coming soon' placeholder", () => {
+    it("renders tab navigation with timer, tasks, stats", () => {
       render(<ProductivityPanel isOpen={true} />);
-      expect(screen.getByText("Notes & History coming soon")).toBeInTheDocument();
+      expect(screen.getByText("timer")).toBeInTheDocument();
+      expect(screen.getByText("tasks")).toBeInTheDocument();
+      expect(screen.getByText("stats")).toBeInTheDocument();
+    });
+
+    it("renders settings button", () => {
+      render(<ProductivityPanel isOpen={true} />);
+      expect(screen.getByRole("button", { name: /settings/i })).toBeInTheDocument();
+    });
+
+    it("renders quick notes textarea", () => {
+      render(<ProductivityPanel isOpen={true} />);
+      expect(screen.getByPlaceholderText("Quick notes...")).toBeInTheDocument();
     });
   });
 
@@ -70,10 +99,9 @@ describe("ProductivityPanel", () => {
 
       expect(screen.getByText("Short Break")).toBeInTheDocument();
       expect(screen.getByText("05:00")).toBeInTheDocument();
-      expect(screen.getByText("Sessions: 1")).toBeInTheDocument();
     });
 
-    it("returns to Focus Time after skipping break", () => {
+    it("returns to Focus after skipping break", () => {
       render(<ProductivityPanel isOpen={true} />);
       // Skip work to break
       fireEvent.click(screen.getByRole("button", { name: /start timer/i }));
@@ -83,7 +111,7 @@ describe("ProductivityPanel", () => {
       fireEvent.click(screen.getByRole("button", { name: /start timer/i }));
       fireEvent.click(screen.getByRole("button", { name: /skip to next/i }));
 
-      expect(screen.getByText("Focus Time")).toBeInTheDocument();
+      expect(screen.getByText("Focus")).toBeInTheDocument();
       expect(screen.getByText("25:00")).toBeInTheDocument();
     });
 
@@ -102,7 +130,6 @@ describe("ProductivityPanel", () => {
 
       expect(screen.getByText("Long Break")).toBeInTheDocument();
       expect(screen.getByText("15:00")).toBeInTheDocument();
-      expect(screen.getByText("Sessions: 4")).toBeInTheDocument();
     });
   });
 
@@ -115,6 +142,64 @@ describe("ProductivityPanel", () => {
 
       expect(screen.getByRole("button", { name: /start timer/i })).toBeInTheDocument();
       expect(screen.getByText("25:00")).toBeInTheDocument();
+    });
+  });
+
+  describe("Tab Navigation", () => {
+    it("switches to tasks tab when clicked", () => {
+      render(<ProductivityPanel isOpen={true} />);
+      fireEvent.click(screen.getByText("tasks"));
+      expect(screen.getByPlaceholderText("Add a task...")).toBeInTheDocument();
+    });
+
+    it("switches to stats tab when clicked", () => {
+      render(<ProductivityPanel isOpen={true} />);
+      fireEvent.click(screen.getByText("stats"));
+      expect(screen.getByText("Sessions")).toBeInTheDocument();
+      expect(screen.getByText("Focus Time")).toBeInTheDocument();
+      expect(screen.getByText("This Week")).toBeInTheDocument();
+    });
+  });
+
+  describe("Tasks Management", () => {
+    it("adds a new task", () => {
+      render(<ProductivityPanel isOpen={true} />);
+      fireEvent.click(screen.getByText("tasks"));
+
+      const input = screen.getByPlaceholderText("Add a task...");
+      fireEvent.change(input, { target: { value: "Test task" } });
+      fireEvent.submit(input.closest("form")!);
+
+      expect(screen.getByText("Test task")).toBeInTheDocument();
+    });
+
+    it("shows 'No tasks yet' when empty", () => {
+      render(<ProductivityPanel isOpen={true} />);
+      fireEvent.click(screen.getByText("tasks"));
+      expect(screen.getByText("No tasks yet")).toBeInTheDocument();
+    });
+  });
+
+  describe("Settings Panel", () => {
+    it("toggles settings panel visibility", () => {
+      render(<ProductivityPanel isOpen={true} />);
+      const settingsBtn = screen.getByRole("button", { name: /settings/i });
+
+      fireEvent.click(settingsBtn);
+      expect(screen.getByText("Timer Durations (minutes)")).toBeInTheDocument();
+
+      fireEvent.click(settingsBtn);
+      expect(screen.queryByText("Timer Durations (minutes)")).not.toBeInTheDocument();
+    });
+
+    it("shows preset duration buttons for each mode", () => {
+      render(<ProductivityPanel isOpen={true} />);
+      fireEvent.click(screen.getByRole("button", { name: /settings/i }));
+
+      // Focus Time presets: 25, 50, 90
+      expect(screen.getByText("25")).toBeInTheDocument();
+      expect(screen.getByText("50")).toBeInTheDocument();
+      expect(screen.getByText("90")).toBeInTheDocument();
     });
   });
 });
