@@ -1,15 +1,13 @@
-import { useContext, useMemo } from "react";
-import { StoreContext } from "../../store";
+import { useMemo } from "react";
+import { useVideo, useAudio } from "../../store";
 
 /**
  * VideoBackground - Lazy-loaded video background component
  * Only renders the currently active video based on day/night + rain state
  */
 const VideoBackground = ({ videos, className = "" }) => {
-  const valueCT = useContext(StoreContext);
-  const toggled = valueCT.toggled;
-  const rain = valueCT.rain;
-  const fullscreen = valueCT.fullscreen;
+  const { toggled, fullscreen } = useVideo();
+  const { rain } = useAudio();
 
   // Determine which video to show based on current state
   const activeVideo = useMemo(() => {

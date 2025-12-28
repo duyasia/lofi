@@ -1,17 +1,14 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { StoreContext } from "../../../store";
+import { useEffect, useRef, useState } from "react";
+import { useAudio } from "../../../store";
 
 const Player = () => {
-  const valueCT = useContext(StoreContext);
-  const song = valueCT.song;
+  const { song, volumeSong } = useAudio();
   const [currentSong, setCurrentSong] = useState(song[0]);
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef();
-  const volumeSong = valueCT.volumeSong;
 
-  const handlePlay = () => {
-    setPlaying((s) => !s);
-  };
+  const handlePlay = () => setPlaying((s) => !s);
+
   useEffect(() => {
     if (playing) {
       audioRef.current.play();
@@ -23,6 +20,7 @@ const Player = () => {
   useEffect(() => {
     audioRef.current.volume = volumeSong / 100;
   }, [volumeSong]);
+
   useEffect(() => {
     setCurrentSong(song[0]);
   }, [song]);
@@ -36,6 +34,7 @@ const Player = () => {
     }
     setPlaying(true);
   };
+
   const handleClickNext = () => {
     const index = song.findIndex((x) => x.name === currentSong.name);
     if (index === song.length - 1) {

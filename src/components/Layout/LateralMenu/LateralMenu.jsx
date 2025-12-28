@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import images from "../../../assets/images/images";
 import "./LateralMenu.scss";
 
-import { StoreContext } from "../../../store";
+import { useAudio } from "../../../store";
 import { chill, jazzy, sleep } from "../../../data/dataSong";
 import {
   MoodPanel,
@@ -23,23 +23,24 @@ const LateralMenu = () => {
   const [clickJazzy, setClickJazzy] = useState(false);
   const [clickChill, setClickChill] = useState(true);
 
-  // Context values
-  const valueCT = useContext(StoreContext);
-  const volumeRain = valueCT.volumeRain;
-  const setVolumeRain = valueCT.setVolumeRain;
-  const setRain = valueCT.setRain;
-  const setCityRain = valueCT.setCityRain;
-  const setCityTraffic = valueCT.setCityTraffic;
-  const volumeTraffic = valueCT.volumeTraffic;
-  const setVolumeTraffic = valueCT.setVolumeTraffic;
-  const setTraffic = valueCT.setTraffic;
-  const volumeKeyboard = valueCT.volumeKeyboard;
-  const setVolumeKeyboard = valueCT.setVolumeKeyboard;
-  const setSoundKey = valueCT.setSoundKey;
-  const setKeyboard = valueCT.setKeyboard;
-  const volumeSong = valueCT.volumeSong;
-  const setVolumeSong = valueCT.setVolumeSong;
-  const setSong = valueCT.setSong;
+  // Audio context values
+  const {
+    volumeRain,
+    setVolumeRain,
+    setRain,
+    setCityRain,
+    setCityTraffic,
+    volumeTraffic,
+    setVolumeTraffic,
+    setTraffic,
+    volumeKeyboard,
+    setVolumeKeyboard,
+    setSoundKey,
+    setKeyboard,
+    volumeSong,
+    setVolumeSong,
+    setSong,
+  } = useAudio();
 
   // Close all panels except the one being opened
   const closeAllPanels = () => {

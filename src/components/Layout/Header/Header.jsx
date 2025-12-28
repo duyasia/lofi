@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { StoreContext } from "../../../store";
+import { useState } from "react";
+import { useVideo } from "../../../store";
 import "./Header.scss";
 
 const MENU_SETTING = [
@@ -31,20 +31,12 @@ const MENU_SETTING = [
 ];
 
 const Header = () => {
-  // Handle Toggle Weather
-  const valueCT = useContext(StoreContext);
-  const toggled = valueCT.toggled;
-  const setToggled = valueCT.setToggled;
-  const fullscreen = valueCT.fullscreen;
-  const setFullscreen = valueCT.setFullscreen;
-  const handleToggle = () => {
-    setToggled((s) => !s);
-  };
-  // Handle Open Menu Setting
+  const { toggled, setToggled, fullscreen, setFullscreen } = useVideo();
   const [openMenu, setOpenMenu] = useState(false);
-  const handleOpenMenu = () => {
-    setOpenMenu((s) => !s);
-  };
+
+  const handleToggle = () => setToggled((s) => !s);
+  const handleOpenMenu = () => setOpenMenu((s) => !s);
+
   const handleFullScreen = () => {
     if (!fullscreen) {
       setFullscreen(true);
@@ -55,10 +47,8 @@ const Header = () => {
       if (!document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.webkitExitFullscreen) {
-        /* Safari */
         document.webkitExitFullscreen();
       } else if (document.msExitFullscreen) {
-        /* IE11 */
         document.msExitFullscreen();
       }
     }
@@ -67,7 +57,6 @@ const Header = () => {
   return (
     <div className="px-[48px] flex items-center justify-between z-50">
       <div>
-        {/* Logo */}
         <img
           className="object-cover h-[100px] w-[260px]"
           src="/assets/starbeans-logo.svg"
@@ -109,14 +98,6 @@ const Header = () => {
             </p>
           </a>
         </div>
-        {/* <button className="text-white bg-[#ffffff40] hover:opacity-60 transition-opacity ease-in delay-100 font-[500] px-[16px] py-[6px] text-[14px] rounded-[8px]">
-          Sign up
-        </button> */}
-        {/* <img
-          src="https://lofi.co/icons/share.svg"
-          alt="iconMenu"
-          className="mt-[6px] cursor-pointer hover:opacity-60 transition-opacity ease-in delay-100"
-        /> */}
         <button onClick={handleFullScreen}>
           <img
             src="/assets/icon/fullscreen-icon.svg"

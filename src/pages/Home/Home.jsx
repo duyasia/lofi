@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { StoreContext } from "../../store";
+import { useAudio, useUI } from "../../store";
 import VideoBackground from "../../components/VideoBackground/VideoBackground";
 import ActionPopover from "../../components/ActionPopover/ActionPopover";
 
@@ -13,52 +12,19 @@ const EXTERIOR_VIDEOS = {
 };
 
 const Home = () => {
-  const valueCT = useContext(StoreContext);
-  const setEnter = valueCT.setEnter;
-  const rain = valueCT.rain;
-  const setRain = valueCT.setRain;
-  const cityRain = valueCT.cityRain;
-  const setCityRain = valueCT.setCityRain;
-  const setVolumeRain = valueCT.setVolumeRain;
-  const cityTraffic = valueCT.cityTraffic;
-  const setCityTraffic = valueCT.setCityTraffic;
-  const traffic = valueCT.traffic;
-  const setTraffic = valueCT.setTraffic;
-  const setVolumeTraffic = valueCT.setVolumeTraffic;
+  const { setEnter } = useUI();
+  const {
+    rain,
+    cityRain,
+    toggleRain,
+    changeRainVolume,
+    traffic,
+    cityTraffic,
+    toggleTraffic,
+    changeTrafficVolume,
+  } = useAudio();
 
-  const handleRain = () => {
-    setRain((s) => !s);
-    if (rain === true) {
-      setVolumeRain(0);
-    } else {
-      setVolumeRain(50);
-      setCityRain(50);
-    }
-  };
-
-  const handleTraffic = () => {
-    setTraffic((s) => !s);
-    if (traffic === true) {
-      setVolumeTraffic(0);
-    } else {
-      setVolumeTraffic(50);
-      setCityTraffic(50);
-    }
-  };
-
-  const handleEnter = () => {
-    setEnter((s) => !s);
-  };
-
-  const handleChangeCityRain = (value) => {
-    setCityRain(value);
-    setVolumeRain(value);
-  };
-
-  const handleChangeCityTraffic = (value) => {
-    setCityTraffic(value);
-    setVolumeTraffic(value);
-  };
+  const handleEnter = () => setEnter((s) => !s);
 
   return (
     <div>
@@ -77,8 +43,8 @@ const Home = () => {
             audioSrc="./assets/audio/rain_city.mp3"
             isActive={rain}
             volume={cityRain}
-            onToggle={handleRain}
-            onVolumeChange={handleChangeCityRain}
+            onToggle={toggleRain}
+            onVolumeChange={changeRainVolume}
             position="top-[40%] left-[6%]"
           />
 
@@ -88,8 +54,8 @@ const Home = () => {
             audioSrc="./assets/audio/city_traffic.mp3"
             isActive={traffic}
             volume={cityTraffic}
-            onToggle={handleTraffic}
-            onVolumeChange={handleChangeCityTraffic}
+            onToggle={toggleTraffic}
+            onVolumeChange={changeTrafficVolume}
             position="top-[68%] left-[30%]"
           />
 

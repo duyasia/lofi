@@ -23,7 +23,7 @@
   },
   "locale": {
     "thinkingLanguage": null,
-    "responseLanguage": null
+    "responseLanguage": "vi"
   },
   "trust": {
     "passphrase": null,
