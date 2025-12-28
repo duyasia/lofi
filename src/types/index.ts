@@ -60,6 +60,10 @@ export interface VideoContextType {
   setToggled: Dispatch<SetStateAction<boolean>>;
   fullscreen: boolean;
   setFullscreen: Dispatch<SetStateAction<boolean>>;
+  // Scene navigation
+  currentScene: string;
+  currentVideos: VideoSet;
+  changeScene: (sceneId: string) => void;
 }
 
 // UI Context types

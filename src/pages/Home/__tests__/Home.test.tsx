@@ -1,12 +1,14 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Home from "../Home";
-import { useAudio, useUI } from "../../../store";
+import { useAudio, useUI, useVideo } from "../../../store";
+import { DEFAULT_VIDEOS } from "../../../data/dataScenes";
 
 // Mock store hooks
 jest.mock("../../../store", () => ({
   useAudio: jest.fn(),
   useUI: jest.fn(),
+  useVideo: jest.fn(),
 }));
 
 // Mock VideoBackground
@@ -54,6 +56,7 @@ jest.mock("../../../components/ActionPopover/ActionPopover", () => ({
 
 const mockUseAudio = useAudio as jest.MockedFunction<typeof useAudio>;
 const mockUseUI = useUI as jest.MockedFunction<typeof useUI>;
+const mockUseVideo = useVideo as jest.MockedFunction<typeof useVideo>;
 
 describe("Home", () => {
   const mockSetEnter = jest.fn();
@@ -67,6 +70,15 @@ describe("Home", () => {
     mockUseUI.mockReturnValue({
       enter: false,
       setEnter: mockSetEnter,
+    });
+    mockUseVideo.mockReturnValue({
+      toggled: true,
+      fullscreen: false,
+      setToggled: jest.fn(),
+      setFullscreen: jest.fn(),
+      currentScene: "exterior",
+      currentVideos: DEFAULT_VIDEOS,
+      changeScene: jest.fn(),
     });
     mockUseAudio.mockReturnValue({
       rain: false,

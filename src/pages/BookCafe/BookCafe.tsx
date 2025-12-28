@@ -1,20 +1,13 @@
 import React from "react";
-import { useAudio, useUI } from "../../store";
+import { useAudio, useUI, useVideo } from "../../store";
 import VideoBackground from "../../components/VideoBackground/VideoBackground";
 import ActionPopover from "../../components/ActionPopover/ActionPopover";
-import type { VideoSet } from "types/index";
 
 import "./BookCafe.scss";
 
-const CAFE_VIDEOS: VideoSet = {
-  day: "./assets/video/CafeDay.mp4",
-  rainyDay: "./assets/video/CafeRainyDay.mp4",
-  night: "./assets/video/CafeNight.mp4",
-  rainyNight: "./assets/video/CafeRainyNight.mp4",
-};
-
 const BookCafe: React.FC = () => {
   const { setEnter } = useUI();
+  const { currentVideos } = useVideo();
   const {
     rain,
     cityRain,
@@ -33,7 +26,7 @@ const BookCafe: React.FC = () => {
       <div>
         {/* Video Background - Lazy loaded */}
         <VideoBackground
-          videos={CAFE_VIDEOS}
+          videos={currentVideos}
           className="background-video-cafe"
         />
 

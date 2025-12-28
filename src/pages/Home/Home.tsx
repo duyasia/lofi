@@ -1,20 +1,13 @@
 import React from "react";
-import { useAudio, useUI } from "../../store";
+import { useAudio, useUI, useVideo } from "../../store";
 import VideoBackground from "../../components/VideoBackground/VideoBackground";
 import ActionPopover from "../../components/ActionPopover/ActionPopover";
-import type { VideoSet } from "types/index";
 
 import "./Home.scss";
 
-const EXTERIOR_VIDEOS: VideoSet = {
-  day: "./assets/video/ExteriorDay.mp4",
-  rainyDay: "./assets/video/ExteriorRainyDay.mp4",
-  night: "./assets/video/ExteriorNight.mp4",
-  rainyNight: "./assets/video/ExteriorRainyNight.mp4",
-};
-
 const Home: React.FC = () => {
   const { setEnter } = useUI();
+  const { currentVideos } = useVideo();
   const {
     rain,
     cityRain,
@@ -33,7 +26,7 @@ const Home: React.FC = () => {
       <div>
         {/* Video Background - Lazy loaded */}
         <VideoBackground
-          videos={EXTERIOR_VIDEOS}
+          videos={currentVideos}
           className="background-video-home"
         />
 
