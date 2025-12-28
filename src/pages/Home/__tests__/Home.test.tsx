@@ -119,6 +119,12 @@ describe("Home", () => {
     render(<Home />);
     fireEvent.click(screen.getByTestId("toggle-enter"));
     expect(mockSetEnter).toHaveBeenCalledTimes(1);
+
+    // Verify the functional update logic
+    const setEnterArg = mockSetEnter.mock.calls[0][0];
+    expect(typeof setEnterArg).toBe("function");
+    expect(setEnterArg(true)).toBe(false);
+    expect(setEnterArg(false)).toBe(true);
   });
 
   it("volume change calls changeRainVolume", () => {

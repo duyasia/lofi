@@ -18,9 +18,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({ videos, className = "
     if (isDay && !isRaining) return videos.day;
     if (isDay && isRaining) return videos.rainyDay;
     if (!isDay && !isRaining) return videos.night;
-    if (!isDay && isRaining) return videos.rainyNight;
-
-    return videos.day;
+    return videos.rainyNight;
   }, [toggled, rain, videos]);
 
   const topPosition = fullscreen ? "top-[0%]" : "top-[-11%]";

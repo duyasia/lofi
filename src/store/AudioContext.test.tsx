@@ -100,6 +100,64 @@ describe('useAudio Hook', () => {
     expect(result.current.volumeKeyboard).toBe(50);
   });
 
+  it('toggleTraffic disables traffic and resets volume', () => {
+    const { result } = renderHook(() => useAudio(), { wrapper });
+
+    // Enable first
+    act(() => {
+      result.current.toggleTraffic();
+    });
+
+    // Then disable
+    act(() => {
+      result.current.toggleTraffic();
+    });
+
+    expect(result.current.traffic).toBe(false);
+    expect(result.current.volumeTraffic).toBe(0);
+  });
+
+  it('toggleKeyboard disables keyboard and resets volume', () => {
+    const { result } = renderHook(() => useAudio(), { wrapper });
+
+    // Enable first
+    act(() => {
+      result.current.toggleKeyboard();
+    });
+
+    // Then disable
+    act(() => {
+      result.current.toggleKeyboard();
+    });
+
+    expect(result.current.keyboard).toBe(false);
+    expect(result.current.volumeKeyboard).toBe(0);
+  });
+
+  it('changeTrafficVolume updates volume and enables traffic when > 0', () => {
+    const { result } = renderHook(() => useAudio(), { wrapper });
+
+    act(() => {
+      result.current.changeTrafficVolume(75);
+    });
+
+    expect(result.current.traffic).toBe(true);
+    expect(result.current.volumeTraffic).toBe(75);
+    expect(result.current.cityTraffic).toBe(75);
+  });
+
+  it('changeKeyboardVolume updates volume and enables keyboard when > 0', () => {
+    const { result } = renderHook(() => useAudio(), { wrapper });
+
+    act(() => {
+      result.current.changeKeyboardVolume(75);
+    });
+
+    expect(result.current.keyboard).toBe(true);
+    expect(result.current.volumeKeyboard).toBe(75);
+    expect(result.current.soundKey).toBe(75);
+  });
+
   it('setSong updates song list', () => {
     const { result } = renderHook(() => useAudio(), { wrapper });
     const newSongs = [{ name: 'Test Song', src: '/test.mp3' }];
