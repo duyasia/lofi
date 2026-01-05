@@ -69,7 +69,7 @@ const Header: React.FC = () => {
         {/* Toggle Weather */}
         <button
           className={` relative w-[61px] h-[30px] rounded-full border-none outline-none shadow-xl  ${
-            toggled ? "bg-[#f3a952]" : "bg-[#11216d]"
+            toggled ? "bg-accent" : "bg-night"
           }`}
           onClick={handleToggle}
         >
@@ -115,11 +115,11 @@ const Header: React.FC = () => {
           />
           {/* Setting Menu */}
           {openMenu && (
-            <div className="z-40 absolute top-[40px] left-[-90px] w-[170px] rounded-[8px] overflow-hidden bg-[#070707] text-white pt-2 pb-2">
+            <div className="z-40 absolute top-[40px] left-[-90px] w-[170px] rounded-[8px] overflow-hidden bg-menu text-white pt-2 pb-2">
               {MENU_SETTING.map((item, index) => (
                 <div
                   key={index}
-                  className="flex gap-[16px] px-[14px] py-[7px] hover:bg-[#f3a952] cursor-pointer"
+                  className="flex gap-[16px] px-[14px] py-[7px] hover-accent cursor-pointer"
                 >
                   <a
                     href={item.url}

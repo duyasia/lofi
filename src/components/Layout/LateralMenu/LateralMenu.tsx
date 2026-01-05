@@ -149,13 +149,13 @@ const LateralMenu: React.FC = () => {
           >
             <img src="./assets/img/menu/lateral_bottom.svg" alt="lateraltop" />
           </div>
-          <div className="border-b-[2px] border-solid border-[#fff3] absolute bottom-0 h-[100%] left-[24px] top-0 w-[50px] pointer-events-none"></div>
+          <div className="border-b-[2px] border-solid border-separator absolute bottom-0 h-[100%] left-[24px] top-0 w-[50px] pointer-events-none"></div>
         </div>
 
         {/* Playlist Button */}
         <div className="w-[100px] h-[70px] flex justify-center items-center relative cursor-pointer">
           <button
-            className={`w-[70px] h-[70px] outline-none z-10 overflow-hidden transition-all duration-150 ease-in-out ${playlist ? "opacity-100 bg-[#070707]" : "opacity-20 brightness-200 bg-transparent"}`}
+            className={`w-[70px] h-[70px] outline-none z-10 overflow-hidden transition-all duration-150 ease-in-out ${playlist ? "opacity-100 bg-menu" : "opacity-20 brightness-200 bg-transparent"}`}
             onClick={handlePlaylist}
           >
             <img
@@ -164,18 +164,18 @@ const LateralMenu: React.FC = () => {
               alt="playlist"
             />
           </button>
-          <div className="border-b-[2px] border-solid border-[#fff3] absolute bottom-0 h-[100%] left-[24px] top-0 w-[50px] pointer-events-none"></div>
+          <div className="border-b-[2px] border-solid border-separator absolute bottom-0 h-[100%] left-[24px] top-0 w-[50px] pointer-events-none"></div>
         </div>
 
         {/* Change Set Button */}
         <div className="w-[100px] h-[70px] flex justify-center items-center relative cursor-pointer">
           <button
-            className={`w-[70px] h-[70px] z-10 outline-none overflow-hidden transition-all duration-150 ease-in-out ${change ? "opacity-100 bg-[#070707]" : "opacity-20 brightness-200 bg-transparent"}`}
+            className={`w-[70px] h-[70px] z-10 outline-none overflow-hidden transition-all duration-150 ease-in-out ${change ? "opacity-100 bg-menu" : "opacity-20 brightness-200 bg-transparent"}`}
             onClick={handleChange}
           >
             <img className="scale-150" src={images.change} alt="change" />
           </button>
-          <div className="border-b-[2px] border-solid border-[#fff3] absolute bottom-0 h-[100%] left-[24px] top-0 w-[50px] pointer-events-none"></div>
+          <div className="border-b-[2px] border-solid border-separator absolute bottom-0 h-[100%] left-[24px] top-0 w-[50px] pointer-events-none"></div>
         </div>
 
         {/* Product Button */}

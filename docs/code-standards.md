@@ -16,9 +16,23 @@
 - Định nghĩa interface cho Props của component.
 - Sử dụng path alias nếu cấu hình cho phép (hiện tại đang dùng relative paths).
 
-## CSS/Styling
-- Ưu tiên sử dụng SCSS Modules hoặc Tailwind CSS để tránh xung đột class.
-- Biến màu sắc và font chữ nên được tập trung trong file variables.
+## CSS/Styling Standards
+
+### 1. Design Tokens First
+- **KHÔNG** sử dụng mã màu hex hoặc hard-coded values trực tiếp trong file `.scss` hoặc Tailwind classes (trừ trường hợp đặc biệt).
+- Luôn sử dụng CSS variables từ `src/index.css`.
+- Ví dụ: `color: var(--color-accent);` thay vì `color: #f1a45a;`.
+
+### 2. Framework Usage
+- **Tailwind CSS**: Ưu tiên cho layout, spacing, flexbox, grid và các thuộc tính đơn giản.
+- **SCSS**: Sử dụng cho các component có logic style phức tạp, animations, hoặc khi cần can thiệp vào CSS của thư viện thứ 3 (như MUI).
+
+### 3. Utility Classes
+- Sử dụng các class tiện ích chung được định nghĩa trong `src/index.css` hoặc file SCSS của layout để đảm bảo tính nhất quán (ví dụ: `.hover-accent`, `.bg-menu`).
+
+### 4. Naming
+- Tuân thủ phương pháp BEM (Block Element Modifier) nếu sử dụng SCSS thuần.
+- Với Tailwind, giữ các class group theo logic (layout -> spacing -> typography -> colors).
 
 ## Testing Standards
 - Mỗi component quan trọng phải có file `.test.tsx` tương ứng.

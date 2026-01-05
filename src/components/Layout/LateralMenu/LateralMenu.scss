@@ -1,9 +1,9 @@
 .volume-slider {
     height: 12px !important;
-    color: #f3a952 !important;
+    color: var(--color-accent) !important;
     width: 180px !important;
     .MuiSlider-rail {
-        color: #4e5054;
+        color: var(--color-rail);
     }
     .MuiSlider-thumb {
         color: white;
@@ -14,10 +14,10 @@
 
 .volume-noise--traffic {
     height: 16px !important;
-    color: #f3a952 !important;
+    color: var(--color-accent) !important;
     width: 140px !important;
     .MuiSlider-rail {
-        color: #4e5054;
+        color: var(--color-rail);
     }
     .MuiSlider-thumb {
         background-image: url("../../../../public/assets/img/noise/citytrafficactive.svg");
@@ -31,10 +31,10 @@
 
 .volume-noise--rain {
     height: 16px !important;
-    color: #f3a952 !important;
+    color: var(--color-accent) !important;
     width: 140px !important;
     .MuiSlider-rail {
-        color: #4e5054;
+        color: var(--color-rail);
     }
     .MuiSlider-thumb {
         background-image: url("../../../../public/assets/img/noise/raincity.svg");
@@ -47,10 +47,10 @@
 }
 .volume-noise--keyboard {
     height: 16px !important;
-    color: #f3a952 !important;
+    color: var(--color-accent) !important;
     width: 140px !important;
     .MuiSlider-rail {
-        color: #4e5054;
+        color: var(--color-rail);
     }
     .MuiSlider-thumb {
         background-image: url("../../../../public/assets/img/noise/keyboard.svg");
@@ -64,4 +64,13 @@
 
 .change-set::-webkit-scrollbar {
     display: none;
+}
+
+/* SCSS utility classes for token-based colors */
+.bg-menu {
+    background-color: var(--color-menu-bg);
+}
+
+.border-separator {
+    border-color: rgba(255, 255, 255, 0.2);
 }

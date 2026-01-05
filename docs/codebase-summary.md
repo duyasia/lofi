@@ -6,8 +6,8 @@ This project is a Lofi music player application built with React, TypeScript, an
 ## Core Technologies
 - **React**: Frontend framework
 - **TypeScript**: Static typing
-- **SCSS**: Styling
-- **Context API**: State management (Audio, UI, Video)
+- **Styling**: Hệ thống Design Tokens (CSS Variables) kết hợp Tailwind CSS và SCSS.
+- **Context API**: State management (Audio, UI, Video).
 - **Vitest/React Testing Library**: Testing framework
 
 ## Project Structure
@@ -56,3 +56,4 @@ This project is a Lofi music player application built with React, TypeScript, an
 - Implemented comprehensive test coverage for lateral menu panels (Phase 01 Panel Tests).
 - Refactored Context API for better performance and lazy loading.
 - **Phase 01 Scene Navigation**: Added `src/data/dataScenes.ts` for scene definitions, extended `VideoContext` to support dynamic scene switching, and updated `ChangeSetPanel` with interactive scene selection.
+- **UI Modernization**: Triển khai hệ thống Design Tokens trong `src/index.css`, cập nhật Header và LateralMenu sử dụng glassmorphism UI, tích hợp bộ font mới (Sora, Space Grotesk, Inter, Manrope).

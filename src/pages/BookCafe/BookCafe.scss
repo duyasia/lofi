@@ -1,10 +1,10 @@
 // Action
 .popover-action:hover .circle-hover {
-  border-color: #f3a952;
+  border-color: var(--color-accent);
 }
 
 .popover-action:hover .circle-hover div {
-  background-color: #f3a952;
+  background-color: var(--color-accent);
   opacity: 1;
 }
 
@@ -18,10 +18,10 @@
 
 .volume-slider {
   height: 12px !important;
-  color: #f3a952 !important;
+  color: var(--color-accent) !important;
   width: 129px !important;
   .MuiSlider-rail {
-    color: #4e5054;
+    color: var(--color-rail);
   }
   .MuiSlider-thumb {
     color: white;

@@ -1,3 +1,20 @@
 .menu:hover .menu-item {
     display: block;
 }
+
+/* SCSS utility classes for token-based colors */
+.bg-accent {
+    background-color: var(--color-accent);
+}
+
+.bg-night {
+    background-color: var(--color-night);
+}
+
+.bg-menu {
+    background-color: var(--color-menu-bg);
+}
+
+.hover-accent:hover {
+    background-color: var(--color-accent);
+}

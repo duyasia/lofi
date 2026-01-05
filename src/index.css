@@ -2,6 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Typography */
+  --font-display: "Sora", "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", "Manrope", system-ui, sans-serif;
+
+  /* Colors - Base */
+  --color-bg: #0f1116;
+  --color-surface: rgba(17, 24, 39, 0.6);
+  --color-ink: #f5f7fb;
+  --color-muted: #9aa3b2;
+
+  /* Colors - Accent */
+  --color-accent: #f1a45a;
+  --color-accent-strong: #f6b36c;
+
+  /* Colors - Theme Toggle */
+  --color-night: #10205f;
+  --color-day: #f1a45a;
+
+  /* Shadows */
+  --shadow-soft: 0 10px 30px rgba(5, 10, 24, 0.35);
+  --shadow-elevated: 0 20px 60px rgba(5, 10, 24, 0.45);
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Legacy colors for backward compatibility */
+  --color-menu-bg: #070707;
+  --color-rail: #4e5054;
+}
+
+/* Night/Day theme overrides */
+[data-theme="night"] {
+  --color-accent: var(--color-night);
+}
+
+[data-theme="day"] {
+  --color-accent: var(--color-day);
+}
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -9,8 +51,11 @@
 }
 
 html {
-    font-family: "Roboto", sans-serif;
+    font-family: var(--font-body);
 }
+
 body {
     overflow: hidden;
+    background-color: var(--color-bg);
+    color: var(--color-ink);
 }
