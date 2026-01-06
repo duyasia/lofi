@@ -13,27 +13,27 @@ const MENU_SETTING: MenuSettingItem[] = [
   {
     icon: "local_drink",
     title: "SẢN PHẨM",
-    url: "https://starbeans.vn/menu",
+    url: "https://homey.com.vn/menu",
   },
   {
     icon: "sell",
     title: "KHUYẾN MÃI",
-    url: "https://starbeans.vn/khuyen-mai",
+    url: "https://homey.com.vn/khuyen-mai",
   },
   {
     icon: "article",
     title: "TIN TỨC",
-    url: "https://starbeans.vn/tin-tuc",
+    url: "https://homey.com.vn/tin-tuc",
   },
   {
     icon: "person_add",
     title: "TUYỂN DỤNG",
-    url: "https://starbeans.vn/tuyen-dung",
+    url: "https://homey.com.vn/tuyen-dung",
   },
   {
     icon: "contact_support",
     title: "LIÊN HỆ",
-    url: "https://starbeans.vn/lien-he",
+    url: "https://homey.com.vn/lien-he",
   },
 ];
 
@@ -61,8 +61,8 @@ const Header: React.FC = () => {
     <div className="px-[48px] py-[24px] flex items-center justify-between z-50">
       <div className="hover-lift">
         <img
-          className="object-cover h-[100px] w-[260px] transition-opacity duration-300 hover:opacity-90"
-          src="/assets/starbeans-logo.svg"
+          className="object-cover h-[200px]  transition-opacity duration-300 hover:opacity-90"
+          src="/assets/homey.svg"
           alt="logo"
         />
       </div>
@@ -91,12 +91,14 @@ const Header: React.FC = () => {
         
         {/* Promo Banner - Glassmorphism style */}
         <div className="hidden md:flex items-center cursor-pointer gap-[12px] glass px-[20px] py-[10px] rounded-[16px] hover-lift group">
-          <h3 className="text-[36px] leading-[40px] transition-transform duration-300 group-hover:scale-110">🎉</h3>
-          <a href="https://zalo.me/351569472972178908" target="_blank" rel="noreferrer noopener">
+          <h3 className="text-[36px] leading-[40px] transition-transform duration-300 group-hover:scale-110">
+          <Icon name="celebration" size={28} />
+          </h3>
+          <a href="https://zalo.me/4214517211878440541" target="_blank" rel="noreferrer noopener">
             <p className="font-bold leading-[18px] text-white text-[13px] tracking-tight">
               ĐĂNG KÝ THÀNH VIÊN
               <br />
-              <span className="text-accent">NHẬN VOUCHER 20%</span>
+              <span className="text-accent">NHẬN 2 VOUCHER 10%</span>
             </p>
           </a>
         </div>
