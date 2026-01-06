@@ -13,4 +13,5 @@ coverage
 .idea
 build
 .nixpacks
-
+*.md
+!DEPLOYMENT.md

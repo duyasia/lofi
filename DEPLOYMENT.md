@@ -1,11 +1,45 @@
 # Hướng dẫn triển khai trên EasyPanel
 
-## Cấu hình Build trên EasyPanel
+## Phương pháp triển khai
+
+Có 3 phương pháp để triển khai trên EasyPanel:
+1. **Dockerfile** (Khuyến nghị - ổn định nhất)
+2. **Nixpacks** (Tự động detect)
+3. **Buildpacks** (Tự động detect)
+
+---
+
+## Phương pháp 1: Dockerfile (Khuyến nghị)
+
+### Cấu hình trên EasyPanel
+
+1. **Build Method**: Chọn **Dockerfile**
+2. **Dockerfile Path**: `Dockerfile` (hoặc để mặc định)
+3. **Docker Context**: `.` (hoặc để mặc định)
+4. **Port**: `4000` (hoặc port mà EasyPanel cung cấp)
+
+### Environment Variables
+- `PORT`: `4000` (hoặc port mà EasyPanel cung cấp, mặc định là 4000)
+
+### Ưu điểm
+- ✅ Kiểm soát hoàn toàn quá trình build
+- ✅ Multi-stage build giúp image nhỏ gọn
+- ✅ Tránh các lỗi dependency conflict
+- ✅ Dễ debug và maintain
+
+### Cấu trúc Dockerfile
+- **Stage 1 (builder)**: Install dependencies và build app
+- **Stage 2 (production)**: Chỉ copy build files và serve
+
+---
+
+## Phương pháp 2: Nixpacks
+
+### Cấu hình Build trên EasyPanel
 
 ### 1. Build Method
-Chọn: **Nixpacks** (hoặc **Buildpacks**)
+Chọn: **Nixpacks**
 - Nixpacks tự động detect React app và cấu hình phù hợp
-- Buildpacks cũng hỗ trợ tốt cho Node.js/React apps
 
 ### 2. Version
 - **Nixpacks**: `1.34.1` (hoặc version mới nhất)
@@ -73,6 +107,17 @@ npx serve -s build -l 4000
 
 ## Tóm tắt cấu hình nhanh
 
+### Dockerfile (Khuyến nghị)
+```
+Build Method: Dockerfile
+Dockerfile Path: Dockerfile
+Docker Context: .
+Port: 4000
+Environment Variables:
+  - PORT: 4000
+```
+
+### Nixpacks
 ```
 Build Method: Nixpacks
 Version: 1.34.1
@@ -81,6 +126,14 @@ Build Command: npm run build
 Start Command: npm run serve
 Nix Packages: (để trống)
 APT Packages: (để trống)
+```
+
+### Buildpacks
+```
+Build Method: Buildpacks
+Install Command: npm install --legacy-peer-deps
+Build Command: npm run build
+Start Command: npm run serve
 ```
 
 ## Xử lý lỗi thường gặp
@@ -99,7 +152,9 @@ APT Packages: (để trống)
 - Nếu vẫn lỗi, thử dùng Buildpacks thay vì Nixpacks
 
 ### Nếu vẫn gặp lỗi với Nixpacks
-Thử chuyển sang **Buildpacks**:
+**Giải pháp tốt nhất**: Chuyển sang **Dockerfile** (Phương pháp 1)
+
+Hoặc thử chuyển sang **Buildpacks**:
 ```
 Build Method: Buildpacks
 Install Command: npm install --legacy-peer-deps
@@ -111,6 +166,23 @@ Start Command: npm run serve
 ```
 Start Command: npx serve -s build -l $PORT
 ```
+
+## Test Dockerfile locally
+
+Để test Dockerfile trước khi deploy:
+
+```bash
+# Build image
+docker build -t lofi-app .
+
+# Run container
+docker run -p 4000:4000 -e PORT=4000 lofi-app
+
+# Hoặc với port khác
+docker run -p 8080:8080 -e PORT=8080 lofi-app
+```
+
+Sau đó truy cập `http://localhost:4000` để kiểm tra.
 
 ## Kiểm tra sau khi deploy
 
