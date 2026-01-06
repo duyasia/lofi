@@ -22,11 +22,11 @@ const ActionPopover: React.FC<ActionPopoverProps> = ({
 
   return (
     <div
-      className={`popover-action flex flex-col justify-start items-center absolute ${position} w-[220px] h-auto cursor-pointer select-none ${zIndex} animate-in fade-in duration-300`}
+      className={`popover-action flex flex-col justify-start items-center absolute ${position} w-[180px] sm:w-[200px] md:w-[220px] h-auto cursor-pointer select-none ${zIndex} animate-in fade-in duration-300 max-w-[calc(100vw-24px)]`}
     >
       {/* Toggle Circle - Enhanced with micro-interactions */}
       <div
-        className={`border-white flex justify-center items-center w-[40px] h-[40px] border-[3px] rounded-full cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 ${
+        className={`border-white flex justify-center items-center w-[32px] h-[32px] sm:w-[36px] sm:h-[36px] md:w-[40px] md:h-[40px] border-[2px] sm:border-[2.5px] md:border-[3px] rounded-full cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 ${
           isActive 
             ? "bg-accent/20 border-accent shadow-glow" 
             : "hover:border-white/60"
@@ -36,16 +36,16 @@ const ActionPopover: React.FC<ActionPopoverProps> = ({
         <div
           className={`bg-white rounded-full transition-all duration-300 ${
             isActive 
-              ? "w-[22px] h-[22px] opacity-100" 
-              : "w-[18px] h-[18px] opacity-0"
+              ? "w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] md:w-[22px] md:h-[22px] opacity-100" 
+              : "w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] md:w-[18px] md:h-[18px] opacity-0"
           }`}
         ></div>
       </div>
 
       {/* Label and Controls - Glassmorphism 2026 */}
-      <div className="title flex flex-col items-center justify-center min-w-[140px] min-h-[1px] p-[12px] mt-[12px] glass rounded-[16px] transition-all duration-300 hover:bg-white/10">
+      <div className="title flex flex-col items-center justify-center min-w-[120px] sm:min-w-[130px] md:min-w-[140px] min-h-[1px] p-[10px] sm:p-[11px] md:p-[12px] mt-[10px] sm:mt-[11px] md:mt-[12px] glass rounded-[12px] sm:rounded-[14px] md:rounded-[16px] transition-all duration-300 hover:bg-white/10">
         <h6
-          className={`mx-[16px] text-[16px] font-[600] leading-[20px] text-white transition-all duration-300 cursor-pointer ${
+          className={`mx-[12px] sm:mx-[14px] md:mx-[16px] text-[14px] sm:text-[15px] md:text-[16px] font-[600] leading-[18px] sm:leading-[19px] md:leading-[20px] text-white transition-all duration-300 cursor-pointer ${
             isActive ? "text-accent" : "hover:opacity-80"
           }`}
           onClick={onToggle}
@@ -55,7 +55,7 @@ const ActionPopover: React.FC<ActionPopoverProps> = ({
 
         {/* Audio Player and Slider (only when active) - Enhanced spacing */}
         {isActive && audioSrc && (
-          <div className="px-[16px] mt-[12px] w-full">
+          <div className="px-[12px] sm:px-[14px] md:px-[16px] mt-[10px] sm:mt-[11px] md:mt-[12px] w-full">
             <ReactAudioPlayer
               preload="auto"
               autoPlay

@@ -27,20 +27,20 @@ const MoodPanel: React.FC<MoodPanelProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="absolute top-[17%] right-[120px] w-[380px] rounded-[24px] z-10 overflow-hidden glass-ultra animate-in fade-in slide-in-from-right-4 duration-300">
-      <div className="mx-[36px] py-[24px]">
+    <div className="absolute top-[15%] sm:top-[17%] right-[12px] sm:right-[80px] md:right-[120px] w-[calc(100vw-24px)] sm:w-[340px] md:w-[380px] max-w-[380px] rounded-[16px] sm:rounded-[20px] md:rounded-[24px] z-10 overflow-hidden glass-ultra animate-in fade-in slide-in-from-right-4 duration-300">
+      <div className="mx-[20px] sm:mx-[28px] md:mx-[36px] py-[16px] sm:py-[20px] md:py-[24px]">
         {/* Header - Minimalism 2.0: Larger typography */}
-        <div className="h-[60px] flex items-center justify-between mb-[24px]">
-          <h4 className="font-[700] text-[24px] text-white leading-[28px] tracking-tight">
+        <div className="h-[48px] sm:h-[54px] md:h-[60px] flex items-center justify-between mb-[16px] sm:mb-[20px] md:mb-[24px]">
+          <h4 className="font-[700] text-[20px] sm:text-[22px] md:text-[24px] text-white leading-[24px] sm:leading-[26px] md:leading-[28px] tracking-tight">
             Mood
           </h4>
         </div>
 
         {/* Mood Selection - Enhanced with micro-interactions */}
-        <div className="flex justify-center items-center gap-[16px] my-[24px]">
+        <div className="flex justify-center items-center gap-[8px] sm:gap-[12px] md:gap-[16px] my-[16px] sm:my-[20px] md:my-[24px]">
           {/* Sleepy */}
           <div
-            className={`relative flex items-center flex-col cursor-pointer h-[100px] w-[100px] rounded-[16px] transition-all duration-300 hover:scale-105 active:scale-95 ${
+            className={`relative flex items-center flex-col cursor-pointer h-[80px] w-[80px] sm:h-[90px] sm:w-[90px] md:h-[100px] md:w-[100px] rounded-[12px] sm:rounded-[14px] md:rounded-[16px] transition-all duration-300 hover:scale-105 active:scale-95 ${
               clickSleep 
                 ? "glass shadow-glow border border-accent/30" 
                 : "bg-white/5 hover:bg-white/10"
@@ -52,10 +52,10 @@ const MoodPanel: React.FC<MoodPanelProps> = ({
                 clickSleep ? "opacity-100 scale-110" : "opacity-30 scale-100"
               }`}
             >
-              <Icon name="bed" size={64} className="text-white" />
+              <Icon name="bed" size={48} className="sm:w-[56px] sm:h-[56px] md:w-16 md:h-16 text-white" />
             </div>
             <p
-              className={`absolute bottom-[12px] text-white text-[15px] font-[500] transition-all duration-300 ${
+              className={`absolute bottom-[10px] sm:bottom-[11px] md:bottom-[12px] text-white text-[13px] sm:text-[14px] md:text-[15px] font-[500] transition-all duration-300 ${
                 clickSleep ? "opacity-100 text-accent" : "opacity-50"
               }`}
             >
@@ -65,7 +65,7 @@ const MoodPanel: React.FC<MoodPanelProps> = ({
 
           {/* Jazzy */}
           <div
-            className={`relative flex items-center flex-col cursor-pointer h-[100px] w-[100px] rounded-[16px] transition-all duration-300 hover:scale-105 active:scale-95 ${
+            className={`relative flex items-center flex-col cursor-pointer h-[80px] w-[80px] sm:h-[90px] sm:w-[90px] md:h-[100px] md:w-[100px] rounded-[12px] sm:rounded-[14px] md:rounded-[16px] transition-all duration-300 hover:scale-105 active:scale-95 ${
               clickJazzy 
                 ? "glass shadow-glow border border-accent/30" 
                 : "bg-white/5 hover:bg-white/10"
@@ -77,10 +77,10 @@ const MoodPanel: React.FC<MoodPanelProps> = ({
                 clickJazzy ? "opacity-100 scale-110" : "opacity-30 scale-100"
               }`}
             >
-              <Icon name="library_music" size={64} className="text-white" />
+              <Icon name="library_music" size={48} className="sm:w-[56px] sm:h-[56px] md:w-16 md:h-16 text-white" />
             </div>
             <p
-              className={`absolute bottom-[12px] text-white text-[15px] font-[500] transition-all duration-300 ${
+              className={`absolute bottom-[10px] sm:bottom-[11px] md:bottom-[12px] text-white text-[13px] sm:text-[14px] md:text-[15px] font-[500] transition-all duration-300 ${
                 clickJazzy ? "opacity-100 text-accent" : "opacity-50"
               }`}
             >
@@ -90,7 +90,7 @@ const MoodPanel: React.FC<MoodPanelProps> = ({
 
           {/* Chill */}
           <div
-            className={`relative flex items-center flex-col cursor-pointer h-[100px] w-[100px] rounded-[16px] transition-all duration-300 hover:scale-105 active:scale-95 ${
+            className={`relative flex items-center flex-col cursor-pointer h-[80px] w-[80px] sm:h-[90px] sm:w-[90px] md:h-[100px] md:w-[100px] rounded-[12px] sm:rounded-[14px] md:rounded-[16px] transition-all duration-300 hover:scale-105 active:scale-95 ${
               clickChill 
                 ? "glass shadow-glow border border-accent/30" 
                 : "bg-white/5 hover:bg-white/10"
@@ -102,10 +102,10 @@ const MoodPanel: React.FC<MoodPanelProps> = ({
                 clickChill ? "opacity-100 scale-110" : "opacity-30 scale-100"
               }`}
             >
-              <Icon name="spa" size={64} className="text-white" />
+              <Icon name="spa" size={48} className="sm:w-[56px] sm:h-[56px] md:w-16 md:h-16 text-white" />
             </div>
             <p
-              className={`absolute bottom-[12px] text-white text-[15px] font-[500] transition-all duration-300 ${
+              className={`absolute bottom-[10px] sm:bottom-[11px] md:bottom-[12px] text-white text-[13px] sm:text-[14px] md:text-[15px] font-[500] transition-all duration-300 ${
                 clickChill ? "opacity-100 text-accent" : "opacity-50"
               }`}
             >

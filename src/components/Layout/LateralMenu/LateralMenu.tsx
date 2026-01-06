@@ -163,11 +163,11 @@ const LateralMenu: React.FC = () => {
   return (
     <div>
       {/* Lateral Menu Bar - Glassmorphism 2026 - Enhanced */}
-      <div className="absolute right-[24px] top-[30%] flex flex-col items-center justify-center rounded-[24px] glass-ultra h-[340px] w-[80px] py-[20px] gap-[4px]">
+      <div className="hidden sm:flex absolute right-[12px] sm:right-[16px] md:right-[24px] top-[30%] flex-col items-center justify-center rounded-[16px] sm:rounded-[20px] md:rounded-[24px] glass-ultra h-[280px] sm:h-[300px] md:h-[340px] w-[60px] sm:w-[70px] md:w-[80px] py-[12px] sm:py-[16px] md:py-[20px] gap-[2px] sm:gap-[3px] md:gap-[4px]">
         {/* Mood Button */}
-        <div className="w-full h-[76px] flex justify-center items-center relative cursor-pointer group">
+        <div className="w-full h-[60px] sm:h-[68px] md:h-[76px] flex justify-center items-center relative cursor-pointer group">
           <button
-            className={`w-[64px] h-[64px] rounded-[16px] outline-none overflow-hidden transition-all duration-300 z-20 hover:scale-110 active:scale-95 flex items-center justify-center ${
+            className={`w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] md:w-[64px] md:h-[64px] rounded-[12px] sm:rounded-[14px] md:rounded-[16px] outline-none overflow-hidden transition-all duration-300 z-20 hover:scale-110 active:scale-95 flex items-center justify-center ${
               mood 
                 ? "opacity-100 glass-strong shadow-glow border border-accent/30" 
                 : "opacity-50 hover:opacity-80 bg-transparent"
@@ -175,15 +175,14 @@ const LateralMenu: React.FC = () => {
             onClick={handleMood}
             aria-label="Mood panel"
           >
-            <Icon name="mood" size={40} className="transition-transform duration-300 group-hover:scale-110 text-white" />
+            <Icon name="mood" size={32} className="sm:w-9 sm:h-9 md:w-10 md:h-10 transition-transform duration-300 group-hover:scale-110 text-white" />
           </button>
-          {mood}
         </div>
 
         {/* Playlist Button */}
-        <div className="w-full h-[76px] flex justify-center items-center relative cursor-pointer group">
+        <div className="w-full h-[60px] sm:h-[68px] md:h-[76px] flex justify-center items-center relative cursor-pointer group">
           <button
-            className={`w-[64px] h-[64px] rounded-[16px] outline-none z-10 overflow-hidden transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center ${
+            className={`w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] md:w-[64px] md:h-[64px] rounded-[12px] sm:rounded-[14px] md:rounded-[16px] outline-none z-10 overflow-hidden transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center ${
               playlist 
                 ? "opacity-100 glass-strong shadow-glow border border-accent/30" 
                 : "opacity-50 hover:opacity-80 bg-transparent"
@@ -191,15 +190,14 @@ const LateralMenu: React.FC = () => {
             onClick={handlePlaylist}
             aria-label="Playlist panel"
           >
-            <Icon name="playlist_play" size={40} className="transition-transform duration-300 group-hover:scale-110 text-white" />
+            <Icon name="playlist_play" size={32} className="sm:w-9 sm:h-9 md:w-10 md:h-10 transition-transform duration-300 group-hover:scale-110 text-white" />
           </button>
-          {playlist}
         </div>
 
         {/* Change Set Button */}
-        <div className="w-full h-[76px] flex justify-center items-center relative cursor-pointer group">
+        <div className="w-full h-[60px] sm:h-[68px] md:h-[76px] flex justify-center items-center relative cursor-pointer group">
           <button
-            className={`w-[64px] h-[64px] rounded-[16px] z-10 outline-none overflow-hidden transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center ${
+            className={`w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] md:w-[64px] md:h-[64px] rounded-[12px] sm:rounded-[14px] md:rounded-[16px] z-10 outline-none overflow-hidden transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center ${
               change 
                 ? "opacity-100 glass-strong shadow-glow border border-accent/30" 
                 : "opacity-50 hover:opacity-80 bg-transparent"
@@ -207,15 +205,14 @@ const LateralMenu: React.FC = () => {
             onClick={handleChange}
             aria-label="Change set panel"
           >
-            <Icon name="swap_horiz" size={40} className="transition-transform duration-300 group-hover:scale-110 text-white" />
+            <Icon name="swap_horiz" size={32} className="sm:w-9 sm:h-9 md:w-10 md:h-10 transition-transform duration-300 group-hover:scale-110 text-white" />
           </button>
-          {change}
         </div>
 
         {/* Product Button */}
-        <div className="w-full h-[76px] flex justify-center items-center relative cursor-pointer group">
+        <div className="w-full h-[60px] sm:h-[68px] md:h-[76px] flex justify-center items-center relative cursor-pointer group">
           <button
-            className={`w-[64px] h-[64px] rounded-[16px] z-20 outline-none overflow-hidden transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center ${
+            className={`w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] md:w-[64px] md:h-[64px] rounded-[12px] sm:rounded-[14px] md:rounded-[16px] z-20 outline-none overflow-hidden transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center ${
               product 
                 ? "opacity-100 glass-strong shadow-glow border border-accent/30" 
                 : "opacity-50 hover:opacity-80 bg-transparent"
@@ -223,7 +220,7 @@ const LateralMenu: React.FC = () => {
             onClick={handleProduct}
             aria-label="Productivity panel"
           >
-            <Icon name="work" size={40} className="transition-transform duration-300 group-hover:scale-110 text-white" />
+            <Icon name="work" size={32} className="sm:w-9 sm:h-9 md:w-10 md:h-10 transition-transform duration-300 group-hover:scale-110 text-white" />
           </button>
         </div>
       </div>

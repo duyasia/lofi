@@ -74,6 +74,29 @@ body {
     overflow: hidden;
     background-color: var(--color-bg);
     color: var(--color-ink);
+    /* Prevent horizontal scroll on mobile */
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+  
+  /* Prevent text overflow */
+  * {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Ensure containers don't overflow */
+  .glass,
+  .glass-strong,
+  .glass-ultra {
+    max-width: calc(100vw - 24px);
+  }
 }
 
 /* Glassmorphism utility classes */
