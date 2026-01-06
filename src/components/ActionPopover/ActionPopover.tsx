@@ -22,28 +22,40 @@ const ActionPopover: React.FC<ActionPopoverProps> = ({
 
   return (
     <div
-      className={`popover-action flex flex-col justify-start items-center absolute ${position} w-[200px] h-auto cursor-pointer select-none ${zIndex}`}
+      className={`popover-action flex flex-col justify-start items-center absolute ${position} w-[220px] h-auto cursor-pointer select-none ${zIndex} animate-in fade-in duration-300`}
     >
-      {/* Toggle Circle */}
+      {/* Toggle Circle - Enhanced with micro-interactions */}
       <div
-        className="border-white circle-hover flex justify-center items-center w-[32px] h-[32px] border-[3px] rounded-full cursor-pointer transition-all duration-[20] ease-in"
+        className={`border-white flex justify-center items-center w-[40px] h-[40px] border-[3px] rounded-full cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 ${
+          isActive 
+            ? "bg-accent/20 border-accent shadow-glow" 
+            : "hover:border-white/60"
+        }`}
         onClick={onToggle}
       >
-        <div className="opacity-0 bg-white w-[18px] h-[18px] rounded-full transition-all duration-[20] ease-in"></div>
+        <div
+          className={`bg-white rounded-full transition-all duration-300 ${
+            isActive 
+              ? "w-[22px] h-[22px] opacity-100" 
+              : "w-[18px] h-[18px] opacity-0"
+          }`}
+        ></div>
       </div>
 
-      {/* Label and Controls */}
-      <div className="title flex flex-col items-center justify-center min-w-[120px] min-h-[1px] p-[8px] mt-[8px] bg-[#00000080] rounded-[8px] transition-all ease-in-out duration-[20]">
+      {/* Label and Controls - Glassmorphism 2026 */}
+      <div className="title flex flex-col items-center justify-center min-w-[140px] min-h-[1px] p-[12px] mt-[12px] glass rounded-[16px] transition-all duration-300 hover:bg-white/10">
         <h6
-          className="mx-[16px] text-[16px] font-[500] leading-[16px] text-white hover:opacity-60"
+          className={`mx-[16px] text-[16px] font-[600] leading-[20px] text-white transition-all duration-300 cursor-pointer ${
+            isActive ? "text-accent" : "hover:opacity-80"
+          }`}
           onClick={onToggle}
         >
           {label}
         </h6>
 
-        {/* Audio Player and Slider (only when active) */}
+        {/* Audio Player and Slider (only when active) - Enhanced spacing */}
         {isActive && audioSrc && (
-          <div className="px-[16px] mt-[5px]">
+          <div className="px-[16px] mt-[12px] w-full">
             <ReactAudioPlayer
               preload="auto"
               autoPlay

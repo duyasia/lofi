@@ -7,7 +7,7 @@ import "./Home.scss";
 
 const Home: React.FC = () => {
   const { setEnter } = useUI();
-  const { currentVideos } = useVideo();
+  const { currentVideos, changeScene } = useVideo();
   const {
     rain,
     cityRain,
@@ -19,7 +19,10 @@ const Home: React.FC = () => {
     changeTrafficVolume,
   } = useAudio();
 
-  const handleEnter = () => setEnter((s) => !s);
+  const handleEnter = () => {
+    setEnter((s) => !s);
+    changeScene('cafe'); // Switch to cafe scene when entering
+  };
 
   return (
     <div>
@@ -41,6 +44,7 @@ const Home: React.FC = () => {
             onToggle={toggleRain}
             onVolumeChange={changeRainVolume}
             position="top-[40%] left-[6%]"
+            zIndex="z-[60]"
           />
 
           {/* Traffic */}
@@ -52,6 +56,7 @@ const Home: React.FC = () => {
             onToggle={toggleTraffic}
             onVolumeChange={changeTrafficVolume}
             position="top-[68%] left-[30%]"
+            zIndex="z-[60]"
           />
 
           {/* Enter */}
@@ -62,6 +67,7 @@ const Home: React.FC = () => {
             onToggle={handleEnter}
             onVolumeChange={() => {}}
             position="top-[60%] left-[60%]"
+            zIndex="z-[60]"
           />
         </div>
       </div>

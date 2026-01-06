@@ -32,35 +32,39 @@ const PlaylistPanel: React.FC<PanelProps> = ({ isOpen }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="absolute top-[26%] right-[90px] w-[360px] rounded-[24px] z-10 overflow-hidden bg-[#070707]">
-      <div className="mx-[16px] py-[10px]">
-        <div className="h-[54px] flex items-center justify-between">
-          <h4 className="font-[700] text-[20px] text-white leading-[24px]">
+    <div className="absolute top-[26%] right-[120px] w-[380px] rounded-[24px] z-10 overflow-hidden glass-ultra animate-in fade-in slide-in-from-right-4 duration-300">
+      <div className="mx-[36px] py-[24px]">
+        <div className="h-[60px] flex items-center justify-between mb-[24px]">
+          <h4 className="font-[700] text-[24px] text-white leading-[28px] tracking-tight">
             Playlists
           </h4>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-[12px] mb-[32px]">
           {PLAYLISTS.map((playlist) => (
-            <img
+            <div
               key={playlist.id}
-              className={`h-[120px] cursor-pointer transition-opacity ${
+              className={`flex-1 cursor-pointer transition-all duration-300 rounded-[16px] overflow-hidden hover:scale-105 active:scale-95 ${
                 activePlaylist === playlist.id
-                  ? "opacity-100 ring-2 ring-white rounded-lg"
+                  ? "ring-2 ring-accent shadow-glow"
                   : "opacity-70 hover:opacity-100"
               }`}
-              src={playlist.image}
-              alt={playlist.id}
               onClick={() => handlePlaylistClick(playlist)}
-            />
+            >
+              <img
+                className="w-full h-auto object-cover"
+                src={playlist.image}
+                alt={playlist.id}
+              />
+            </div>
           ))}
         </div>
-        <div className="h-[54px] flex items-center justify-between">
-          <h4 className="font-[700] text-[20px] text-white leading-[24px]">
+        <div className="h-[32px] flex items-center justify-between mb-[12px] border-t border-white/10 pt-[20px]">
+          <h4 className="font-[700] text-[20px] text-white leading-[24px] tracking-tight">
             Templates
           </h4>
         </div>
         <div>
-          <p className="opacity-50 text-[14px] text-white">
+          <p className="opacity-60 text-[14px] text-white leading-relaxed">
             You haven't saved any template yet, open the mixer to save one.
           </p>
         </div>

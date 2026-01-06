@@ -1,23 +1,36 @@
 .volume-slider {
-    height: 12px !important;
-    color: #f3a952 !important;
-    width: 180px !important;
+    height: 6px !important;
+    color: var(--color-accent) !important;
+    width: 100% !important;
     .MuiSlider-rail {
-        color: #4e5054;
+        color: rgba(255, 255, 255, 0.15) !important;
+        height: 6px !important;
+        border-radius: 3px !important;
+    }
+    .MuiSlider-track {
+        height: 6px !important;
+        border-radius: 3px !important;
     }
     .MuiSlider-thumb {
-        color: white;
-        width: 18px;
-        height: 18px;
+        color: white !important;
+        width: 20px !important;
+        height: 20px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        transition: all 0.2s ease !important;
+        &:hover {
+            width: 24px !important;
+            height: 24px !important;
+            box-shadow: 0 4px 12px rgba(241, 164, 90, 0.4) !important;
+        }
     }
 }
 
 .volume-noise--traffic {
     height: 16px !important;
-    color: #f3a952 !important;
+    color: var(--color-accent) !important;
     width: 140px !important;
     .MuiSlider-rail {
-        color: #4e5054;
+        color: var(--color-rail);
     }
     .MuiSlider-thumb {
         background-image: url("../../../../public/assets/img/noise/citytrafficactive.svg");
@@ -31,10 +44,10 @@
 
 .volume-noise--rain {
     height: 16px !important;
-    color: #f3a952 !important;
+    color: var(--color-accent) !important;
     width: 140px !important;
     .MuiSlider-rail {
-        color: #4e5054;
+        color: var(--color-rail);
     }
     .MuiSlider-thumb {
         background-image: url("../../../../public/assets/img/noise/raincity.svg");
@@ -47,10 +60,10 @@
 }
 .volume-noise--keyboard {
     height: 16px !important;
-    color: #f3a952 !important;
+    color: var(--color-accent) !important;
     width: 140px !important;
     .MuiSlider-rail {
-        color: #4e5054;
+        color: var(--color-rail);
     }
     .MuiSlider-thumb {
         background-image: url("../../../../public/assets/img/noise/keyboard.svg");
@@ -64,4 +77,13 @@
 
 .change-set::-webkit-scrollbar {
     display: none;
+}
+
+/* SCSS utility classes for token-based colors */
+.bg-menu {
+    background-color: var(--color-menu-bg);
+}
+
+.border-separator {
+    border-color: rgba(255, 255, 255, 0.2);
 }
