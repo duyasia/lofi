@@ -83,9 +83,29 @@ Nix Packages: (để trống)
 APT Packages: (để trống)
 ```
 
-**Lưu ý về lỗi dependency conflict:**
-- Nếu gặp lỗi `ERESOLVE could not resolve` với TypeScript, đảm bảo Install Command có `--legacy-peer-deps`
+## Xử lý lỗi thường gặp
+
+### Lỗi 1: ERESOLVE could not resolve (TypeScript conflict)
+**Giải pháp**: Đảm bảo Install Command có `--legacy-peer-deps`
 - File `.npmrc` đã được tạo nhưng một số platform có thể không đọc file này trong quá trình build
+
+### Lỗi 2: Cannot find module 'chalk'
+**Giải pháp**: 
+1. Đã thêm `chalk@^3.0.0` vào dependencies trong `package.json` (version 3.x dùng CommonJS, tương thích với react-dev-utils)
+2. Đã tạo file `.dockerignore` để ngăn Nixpacks copy lại `node_modules` sau khi install
+- Chalk là dependency của `react-dev-utils` (được sử dụng bởi react-scripts)
+- Chalk 4.x dùng ESM, có thể không tương thích với react-dev-utils
+- Chalk 3.x dùng CommonJS, tương thích tốt hơn
+- Nếu vẫn lỗi, thử dùng Buildpacks thay vì Nixpacks
+
+### Nếu vẫn gặp lỗi với Nixpacks
+Thử chuyển sang **Buildpacks**:
+```
+Build Method: Buildpacks
+Install Command: npm install --legacy-peer-deps
+Build Command: npm run build
+Start Command: npm run serve
+```
 
 **Hoặc nếu EasyPanel có biến môi trường PORT:**
 ```
