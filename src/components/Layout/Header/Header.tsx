@@ -12,28 +12,28 @@ interface MenuSettingItem {
 const MENU_SETTING: MenuSettingItem[] = [
   {
     icon: "local_drink",
-    title: "SẢN PHẨM",
+    title: "MENU HOMEY",
     url: "https://homey.com.vn/menu",
   },
   {
-    icon: "sell",
-    title: "KHUYẾN MÃI",
-    url: "https://homey.com.vn/khuyen-mai",
+    icon: "fastfood",
+    title: "MENU MICHIKIN",
+    url: "https://michikin.com/menu",
   },
   {
-    icon: "article",
-    title: "TIN TỨC",
-    url: "https://homey.com.vn/tin-tuc",
+    icon: "contacts_product",
+    title: "FACEBOOK",
+    url: "https://www.facebook.com/homey.xinchao",
   },
   {
     icon: "person_add",
-    title: "TUYỂN DỤNG",
-    url: "https://homey.com.vn/tuyen-dung",
+    title: "INSTAGRAM",
+    url: "https://instagram.com/homey_xinchao",
   },
   {
-    icon: "contact_support",
-    title: "LIÊN HỆ",
-    url: "https://homey.com.vn/lien-he",
+    icon: "add_call",
+    title: "0832.054.222",
+    url: "tel:0832054222",
   },
 ];
 
