@@ -58,14 +58,14 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="px-[48px] py-[24px] flex items-center justify-between z-50">
-      <div className="hover-lift">
+    <div className="px-[48px] py-[0px] flex items-center justify-between z-50">
+        <a href="https://homey.com.vn" target="_blank" rel="noreferrer noopener">
         <img
           className="object-cover h-[200px]  transition-opacity duration-300 hover:opacity-90"
           src="/assets/homey.svg"
           alt="logo"
         />
-      </div>
+        </a>
       <div className="flex items-center h-full gap-[20px]">
         {/* Toggle Weather - Enhanced with micro-interactions */}
         <button
