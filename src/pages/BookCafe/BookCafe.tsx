@@ -7,7 +7,7 @@ import "./BookCafe.scss";
 
 const BookCafe: React.FC = () => {
   const { setEnter } = useUI();
-  const { currentVideos } = useVideo();
+  const { currentVideos, changeScene } = useVideo();
   const {
     rain,
     cityRain,
@@ -19,7 +19,10 @@ const BookCafe: React.FC = () => {
     changeKeyboardVolume,
   } = useAudio();
 
-  const handleEnter = () => setEnter((s) => !s);
+  const handleEnter = () => {
+    setEnter((s) => !s);
+    changeScene('exterior'); // Switch back to exterior scene when going out
+  };
 
   return (
     <div>
@@ -41,6 +44,7 @@ const BookCafe: React.FC = () => {
             onToggle={toggleRain}
             onVolumeChange={changeRainVolume}
             position="top-[15%] left-[16%]"
+            zIndex="z-[60]"
           />
 
           {/* Keyboard */}
@@ -52,7 +56,7 @@ const BookCafe: React.FC = () => {
             onToggle={toggleKeyboard}
             onVolumeChange={changeKeyboardVolume}
             position="top-[76%] left-[84%]"
-            zIndex="z-[-1]"
+            zIndex="z-[60]"
           />
 
           {/* Go Out */}
@@ -63,6 +67,7 @@ const BookCafe: React.FC = () => {
             onToggle={handleEnter}
             onVolumeChange={() => {}}
             position="top-[70%] left-[0%]"
+            zIndex="z-[60]"
           />
         </div>
       </div>

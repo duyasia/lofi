@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
-import images from "../../../assets/images/images";
 import "./LateralMenu.scss";
+import Icon from "../../Icon/Icon";
 
 import { useAudio } from "../../../store";
 import { chill, jazzy, sleep } from "../../../data/dataSong";
@@ -55,29 +55,57 @@ const LateralMenu: React.FC = () => {
     setProduct(false);
   };
 
-  // Panel toggle handlers
+  // Panel toggle handlers - Fixed cycle functionality
   const handleMood = () => {
-    const wasOpen = mood;
-    closeAllPanels();
-    setMood(!wasOpen);
+    if (mood) {
+      // If already open, close it
+      setMood(false);
+    } else {
+      // Close all other panels first, then open this one
+      setPlaylist(false);
+      setChange(false);
+      setProduct(false);
+      setMood(true);
+    }
   };
 
   const handlePlaylist = () => {
-    const wasOpen = playlist;
-    closeAllPanels();
-    setPlaylist(!wasOpen);
+    if (playlist) {
+      // If already open, close it
+      setPlaylist(false);
+    } else {
+      // Close all other panels first, then open this one
+      setMood(false);
+      setChange(false);
+      setProduct(false);
+      setPlaylist(true);
+    }
   };
 
   const handleChange = () => {
-    const wasOpen = change;
-    closeAllPanels();
-    setChange(!wasOpen);
+    if (change) {
+      // If already open, close it
+      setChange(false);
+    } else {
+      // Close all other panels first, then open this one
+      setMood(false);
+      setPlaylist(false);
+      setProduct(false);
+      setChange(true);
+    }
   };
 
   const handleProduct = () => {
-    const wasOpen = product;
-    closeAllPanels();
-    setProduct(!wasOpen);
+    if (product) {
+      // If already open, close it
+      setProduct(false);
+    } else {
+      // Close all other panels first, then open this one
+      setMood(false);
+      setPlaylist(false);
+      setChange(false);
+      setProduct(true);
+    }
   };
 
   // Volume change handlers
@@ -134,63 +162,69 @@ const LateralMenu: React.FC = () => {
 
   return (
     <div>
-      {/* Lateral Menu Bar */}
-      <div className="absolute right-[20px] top-[30%] flex flex-col items-center justify-center rounded-full bg-[rgba(0,0,0,0.6)] h-[280px] w-[70px]">
+      {/* Lateral Menu Bar - Glassmorphism 2026 - Enhanced */}
+      <div className="absolute right-[24px] top-[30%] flex flex-col items-center justify-center rounded-[24px] glass-ultra h-[340px] w-[80px] py-[20px] gap-[4px]">
         {/* Mood Button */}
-        <div className="w-[100px] h-[70px] flex justify-center items-center relative cursor-pointer">
+        <div className="w-full h-[76px] flex justify-center items-center relative cursor-pointer group">
           <button
-            className={`w-[70px] h-[70px] bg-transparent outline-none overflow-hidden transition-all duration-150 ease-in-out z-20 ${mood ? "opacity-100" : "opacity-20 brightness-200"}`}
+            className={`w-[64px] h-[64px] rounded-[16px] outline-none overflow-hidden transition-all duration-300 z-20 hover:scale-110 active:scale-95 flex items-center justify-center ${
+              mood 
+                ? "opacity-100 glass-strong shadow-glow border border-accent/30" 
+                : "opacity-50 hover:opacity-80 bg-transparent"
+            }`}
             onClick={handleMood}
+            aria-label="Mood panel"
           >
-            <img className="scale-150" src={images.mood} alt="mood" />
+            <Icon name="mood" size={40} className="transition-transform duration-300 group-hover:scale-110 text-white" />
           </button>
-          <div
-            className={`-scale-y-100 absolute top-[-23px] right-[10px] h-[120px] w-[80px] z-10 ${mood ? "" : "hidden"}`}
-          >
-            <img src="./assets/img/menu/lateral_bottom.svg" alt="lateraltop" />
-          </div>
-          <div className="border-b-[2px] border-solid border-separator absolute bottom-0 h-[100%] left-[24px] top-0 w-[50px] pointer-events-none"></div>
+          {mood}
         </div>
 
         {/* Playlist Button */}
-        <div className="w-[100px] h-[70px] flex justify-center items-center relative cursor-pointer">
+        <div className="w-full h-[76px] flex justify-center items-center relative cursor-pointer group">
           <button
-            className={`w-[70px] h-[70px] outline-none z-10 overflow-hidden transition-all duration-150 ease-in-out ${playlist ? "opacity-100 bg-menu" : "opacity-20 brightness-200 bg-transparent"}`}
+            className={`w-[64px] h-[64px] rounded-[16px] outline-none z-10 overflow-hidden transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center ${
+              playlist 
+                ? "opacity-100 glass-strong shadow-glow border border-accent/30" 
+                : "opacity-50 hover:opacity-80 bg-transparent"
+            }`}
             onClick={handlePlaylist}
+            aria-label="Playlist panel"
           >
-            <img
-              className="scale-150 ml-[-2px]"
-              src={images.playlist}
-              alt="playlist"
-            />
+            <Icon name="playlist_play" size={40} className="transition-transform duration-300 group-hover:scale-110 text-white" />
           </button>
-          <div className="border-b-[2px] border-solid border-separator absolute bottom-0 h-[100%] left-[24px] top-0 w-[50px] pointer-events-none"></div>
+          {playlist}
         </div>
 
         {/* Change Set Button */}
-        <div className="w-[100px] h-[70px] flex justify-center items-center relative cursor-pointer">
+        <div className="w-full h-[76px] flex justify-center items-center relative cursor-pointer group">
           <button
-            className={`w-[70px] h-[70px] z-10 outline-none overflow-hidden transition-all duration-150 ease-in-out ${change ? "opacity-100 bg-menu" : "opacity-20 brightness-200 bg-transparent"}`}
+            className={`w-[64px] h-[64px] rounded-[16px] z-10 outline-none overflow-hidden transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center ${
+              change 
+                ? "opacity-100 glass-strong shadow-glow border border-accent/30" 
+                : "opacity-50 hover:opacity-80 bg-transparent"
+            }`}
             onClick={handleChange}
+            aria-label="Change set panel"
           >
-            <img className="scale-150" src={images.change} alt="change" />
+            <Icon name="swap_horiz" size={40} className="transition-transform duration-300 group-hover:scale-110 text-white" />
           </button>
-          <div className="border-b-[2px] border-solid border-separator absolute bottom-0 h-[100%] left-[24px] top-0 w-[50px] pointer-events-none"></div>
+          {change}
         </div>
 
         {/* Product Button */}
-        <div className="w-[100px] h-[70px] flex justify-center items-center relative cursor-pointer">
+        <div className="w-full h-[76px] flex justify-center items-center relative cursor-pointer group">
           <button
-            className={`w-[70px] h-[70px] z-20 bg-transparent outline-none overflow-hidden ${product ? "opacity-100" : "opacity-20 brightness-200"}`}
+            className={`w-[64px] h-[64px] rounded-[16px] z-20 outline-none overflow-hidden transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center ${
+              product 
+                ? "opacity-100 glass-strong shadow-glow border border-accent/30" 
+                : "opacity-50 hover:opacity-80 bg-transparent"
+            }`}
             onClick={handleProduct}
+            aria-label="Productivity panel"
           >
-            <img className="scale-[0.4]" src={images.product} alt="product" />
+            <Icon name="work" size={40} className="transition-transform duration-300 group-hover:scale-110 text-white" />
           </button>
-          <div
-            className={`absolute top-[-26px] right-[10px] h-[120px] w-[80px] z-10 ${product ? "" : "hidden"}`}
-          >
-            <img src="./assets/img/menu/lateral_bottom.svg" alt="lateraltop" />
-          </div>
         </div>
       </div>
 

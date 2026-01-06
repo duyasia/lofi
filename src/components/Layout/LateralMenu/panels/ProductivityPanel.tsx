@@ -75,7 +75,7 @@ const ProductivityPanel: React.FC<PanelProps> = ({ isOpen }) => {
   const maxFocusTime = Math.max(...weekStats.map((s) => s.focusTime), 1);
 
   return (
-    <div className="absolute top-[18%] right-[90px] w-[300px] rounded-[20px] z-10 overflow-hidden bg-[#0a0a0a]/95 backdrop-blur-sm border border-white/5">
+    <div className="absolute top-[18%] right-[120px] w-[340px] rounded-[24px] z-10 overflow-hidden glass-ultra animate-in fade-in slide-in-from-right-4 duration-300">
       <div className="p-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-3">

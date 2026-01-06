@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useAudio } from "../../../store";
 import type { Song } from "../../../types";
+import Icon from "../../Icon/Icon";
 
 type RepeatMode = "none" | "one" | "all";
 
@@ -143,91 +144,92 @@ const Player: React.FC = () => {
         onEnded={handleEnded}
       />
 
-      {/* Player controls container */}
-      <div className="absolute flex flex-col items-center justify-center bottom-[4%] z-50 w-full">
-        {/* Song name */}
-        <div className="text-white text-[16px] font-[500] mb-2">
-          {currentSong.name}
-        </div>
+      {/* Player controls container - Glassmorphism 2026 */}
+      <div className="absolute flex flex-col items-center justify-center bottom-[5%] z-50 w-full px-[24px] pointer-events-none">
+        <div className="glass-strong rounded-[24px] px-[32px] py-[24px] backdrop-blur-xl min-w-[480px] max-w-[600px] pointer-events-auto">
+          {/* Song name - Minimalism 2.0: Larger typography */}
+          <div className="text-white text-[18px] font-[600] mb-[16px] text-center tracking-tight">
+            {currentSong.name}
+          </div>
 
-        {/* Progress bar */}
-        <div className="flex items-center gap-2 w-[400px] mb-2">
-          <span className="text-white text-[12px] w-[40px] text-right">
-            {formatTime(currentTime)}
-          </span>
-          <input
-            type="range"
-            min={0}
-            max={duration || 100}
-            value={currentTime}
-            onChange={handleSeek}
-            className="flex-1 h-[4px] bg-white/30 rounded-full appearance-none cursor-pointer"
-            style={{
-              background: `linear-gradient(to right, white ${progressPercent}%, rgba(255,255,255,0.3) ${progressPercent}%)`,
-            }}
-          />
-          <span className="text-white text-[12px] w-[40px]">
-            {formatTime(duration)}
-          </span>
-        </div>
-
-        {/* Controls */}
-        <div className="flex items-center gap-[20px]">
-          {/* Shuffle */}
-          <button
-            onClick={toggleShuffle}
-            className={`w-[24px] h-[24px] transition-opacity ${isShuffled ? "opacity-100" : "opacity-50"}`}
-            aria-label="shuffle"
-          >
-            <img src="./assets/icon/shuffle.svg" alt="shuffle" />
-          </button>
-
-          {/* Prev */}
-          <button
-            className="w-[36px] h-[36px]"
-            onClick={handleClickPrev}
-            aria-label="previous"
-          >
-            <img src="./assets/icon/prev-song.svg" alt="prev" />
-          </button>
-
-          {/* Play/Pause */}
-          <button
-            className="w-[54px] h-[54px]"
-            onClick={handlePlay}
-            aria-label={playing ? "pause" : "play"}
-          >
-            {playing ? (
-              <img src="./assets/icon/pause-icon.svg" alt="pause" />
-            ) : (
-              <img src="./assets/icon/play-icon.svg" alt="play" />
-            )}
-          </button>
-
-          {/* Next */}
-          <button
-            className="w-[36px] h-[36px]"
-            onClick={handleClickNext}
-            aria-label="next"
-          >
-            <img src="./assets/icon/next-song.svg" alt="next" />
-          </button>
-
-          {/* Repeat */}
-          <button
-            onClick={toggleRepeat}
-            className={`w-[24px] h-[24px] transition-opacity ${repeatMode !== "none" ? "opacity-100" : "opacity-50"}`}
-            aria-label="repeat"
-          >
-            <img
-              src={
-                repeatMode === "one"
-                  ? "./assets/icon/repeat-one.svg"
-                  : "./assets/icon/repeat.svg"
-              }
-              alt="repeat"
+          {/* Progress bar - Enhanced with better styling */}
+          <div className="flex items-center gap-[16px] w-full mb-[20px]">
+            <span className="text-white text-[13px] w-[48px] text-right font-[500] opacity-70">
+              {formatTime(currentTime)}
+            </span>
+            <input
+              type="range"
+              min={0}
+              max={duration || 100}
+              value={currentTime}
+              onChange={handleSeek}
+              className="flex-1 h-[6px] bg-white/20 rounded-full appearance-none cursor-pointer transition-all duration-200 hover:h-[8px]"
+              style={{
+                background: `linear-gradient(to right, var(--color-accent) ${progressPercent}%, rgba(255,255,255,0.2) ${progressPercent}%)`,
+              }}
             />
-          </button>
+            <span className="text-white text-[13px] w-[48px] font-[500] opacity-70">
+              {formatTime(duration)}
+            </span>
+          </div>
+
+          {/* Controls - Enhanced with micro-interactions */}
+          <div className="flex items-center justify-center gap-[24px]">
+            {/* Shuffle */}
+            <button
+              onClick={toggleShuffle}
+              className={`w-[28px] h-[28px] transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center text-white ${
+                isShuffled 
+                  ? "opacity-100" 
+                  : "opacity-50 hover:opacity-70"
+              }`}
+              aria-label="shuffle"
+            >
+              <Icon name="shuffle" size={28} />
+            </button>
+
+            {/* Prev */}
+            <button
+              className="w-[40px] h-[40px] transition-all duration-300 hover:scale-110 active:scale-95 hover:opacity-80 flex items-center justify-center text-white"
+              onClick={handleClickPrev}
+              aria-label="previous"
+            >
+              <Icon name="skip_previous" size={40} />
+            </button>
+
+            {/* Play/Pause - Enhanced with glow effect */}
+            <button
+              className={`w-[40px] h-[40px] rounded-full transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center text-white ${
+                playing ? "shadow-glow" : ""
+              }`}
+              onClick={handlePlay}
+              aria-label={playing ? "pause" : "play"}
+            >
+              <Icon name={playing ? "pause" : "play_circle"} size={40} />
+            </button>
+
+            {/* Next */}
+            <button
+              className="w-[40px] h-[40px] transition-all duration-300 hover:scale-110 active:scale-95 hover:opacity-80 flex items-center justify-center text-white"
+              onClick={handleClickNext}
+              aria-label="next"
+            >
+              <Icon name="skip_next" size={40} />
+            </button>
+
+            {/* Repeat */}
+            <button
+              onClick={toggleRepeat}
+              className={`w-[28px] h-[28px] transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center text-white ${
+                repeatMode !== "none" 
+                  ? "opacity-100" 
+                  : "opacity-50 hover:opacity-70"
+              }`}
+              aria-label="repeat"
+            >
+              <Icon name={repeatMode === "one" ? "repeat_one" : "repeat"} size={28} />
+            </button>
+          </div>
         </div>
       </div>
     </div>

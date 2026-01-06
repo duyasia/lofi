@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useVideo } from "../../../store";
 import "./Header.scss";
+import Icon from "../../Icon/Icon";
 
 interface MenuSettingItem {
   icon: string;
@@ -10,27 +11,27 @@ interface MenuSettingItem {
 
 const MENU_SETTING: MenuSettingItem[] = [
   {
-    icon: "/assets/icon/local_drink.svg",
+    icon: "local_drink",
     title: "SẢN PHẨM",
     url: "https://starbeans.vn/menu",
   },
   {
-    icon: "/assets/icon/sell.svg",
+    icon: "sell",
     title: "KHUYẾN MÃI",
     url: "https://starbeans.vn/khuyen-mai",
   },
   {
-    icon: "/assets/icon/newspaper.svg",
+    icon: "article",
     title: "TIN TỨC",
     url: "https://starbeans.vn/tin-tuc",
   },
   {
-    icon: "/assets/icon/person_add.svg",
+    icon: "person_add",
     title: "TUYỂN DỤNG",
     url: "https://starbeans.vn/tuyen-dung",
   },
   {
-    icon: "/assets/icon/contact.svg",
+    icon: "contact_support",
     title: "LIÊN HỆ",
     url: "https://starbeans.vn/lien-he",
   },
@@ -57,78 +58,90 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="px-[48px] flex items-center justify-between z-50">
-      <div>
+    <div className="px-[48px] py-[24px] flex items-center justify-between z-50">
+      <div className="hover-lift">
         <img
-          className="object-cover h-[100px] w-[260px]"
+          className="object-cover h-[100px] w-[260px] transition-opacity duration-300 hover:opacity-90"
           src="/assets/starbeans-logo.svg"
           alt="logo"
         />
       </div>
-      <div className="flex items-center h-full gap-[16px] ">
-        {/* Toggle Weather */}
+      <div className="flex items-center h-full gap-[20px]">
+        {/* Toggle Weather - Enhanced with micro-interactions */}
         <button
-          className={` relative w-[61px] h-[30px] rounded-full border-none outline-none shadow-xl  ${
-            toggled ? "bg-accent" : "bg-night"
+          className={`relative w-[64px] h-[32px] rounded-full border-none outline-none shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 ${
+            toggled ? "bg-accent shadow-glow" : "bg-night"
           }`}
           onClick={handleToggle}
+          aria-label="Toggle day/night mode"
         >
           <div
-            className={`absolute transition-all ease-linear delay-150 top-[2px] bg-white w-[25px] h-[25px] rounded-full shadow-lg ${
-              toggled ? "translate-x-[34px]" : "translate-x-[2px]"
+            className={`absolute transition-all duration-300 ease-out top-[3px] bg-white w-[26px] h-[26px] rounded-full shadow-md ${
+              toggled ? "translate-x-[34px]" : "translate-x-[3px]"
             }`}
           ></div>
-          <img
-            className={`absolute top-[6px] w-[17px] h-[17px] bg-[] ${
-              toggled ? "left-[8px]" : "right-[8px]"
+          <div
+            className={`absolute top-[7px] w-[18px] h-[18px] transition-all duration-300 flex items-center justify-center text-white ${
+              toggled ? "left-[8px] opacity-100" : "right-[8px] opacity-100"
             }`}
-            src={
-              toggled
-                ? "/assets/icon/night-icon.svg"
-                : "/assets/icon/day-icon.svg"
-            }
-            alt="iconWeather"
-          />
+          >
+            <Icon name={toggled ? "dark_mode" : "light_mode"} size={18} />
+          </div>
         </button>
-        <div className="hidden md:flex items-center cursor-pointer gap-[8px] bg-gradient-to-l px-[16px] py-[5px] rounded-[8px] from-[#e18660e6] to-[#f4ca5de6]">
-          <h3 className="text-[32px] leading-[36px]">🎉</h3>
+        
+        {/* Promo Banner - Glassmorphism style */}
+        <div className="hidden md:flex items-center cursor-pointer gap-[12px] glass px-[20px] py-[10px] rounded-[16px] hover-lift group">
+          <h3 className="text-[36px] leading-[40px] transition-transform duration-300 group-hover:scale-110">🎉</h3>
           <a href="https://zalo.me/351569472972178908" target="_blank" rel="noreferrer noopener">
-            <p className="font-bold leading-[16px] text-white text-[12px]">
+            <p className="font-bold leading-[18px] text-white text-[13px] tracking-tight">
               ĐĂNG KÝ THÀNH VIÊN
               <br />
-              NHẬN VOUCHER 20%
+              <span className="text-accent">NHẬN VOUCHER 20%</span>
             </p>
           </a>
         </div>
-        <button onClick={handleFullScreen}>
-          <img
-            src="/assets/icon/fullscreen-icon.svg"
-            alt="iconMenu"
-            className="mt-[6px] cursor-pointer hover:opacity-60 transition-opacity ease-in delay-100"
-          />
+        
+        {/* Fullscreen Button - Glassmorphism */}
+        <button 
+          onClick={handleFullScreen}
+          className="glass p-[12px] rounded-[12px] hover-lift transition-all duration-300 hover:bg-white/10 flex items-center justify-center text-white"
+          aria-label="Toggle fullscreen"
+        >
+          <Icon name="fullscreen" size={20} />
         </button>
-        <div className="relative" onClick={handleOpenMenu}>
-          <img
-            src="/assets/icon/drag-icon.svg"
-            alt="iconMenu"
-            className="mt-[6px] cursor-pointer hover:opacity-60 transition-opacity ease-in delay-100"
-          />
-          {/* Setting Menu */}
+        
+        {/* Menu Button - Glassmorphism */}
+        <div className="relative">
+          <button
+            onClick={handleOpenMenu}
+            className="glass p-[12px] rounded-[12px] hover-lift transition-all duration-300 hover:bg-white/10 flex items-center justify-center text-white"
+            aria-label="Open menu"
+          >
+            <Icon name="menu" size={20} />
+          </button>
+          
+          {/* Setting Menu - Glassmorphism with smooth animation */}
           {openMenu && (
-            <div className="z-40 absolute top-[40px] left-[-90px] w-[170px] rounded-[8px] overflow-hidden bg-menu text-white pt-2 pb-2">
+            <div className="z-40 absolute top-[56px] right-0 w-[200px] rounded-[16px] overflow-hidden glass-strong text-white pt-2 pb-2 animate-in fade-in slide-in-from-top-2 duration-300">
               {MENU_SETTING.map((item, index) => (
                 <div
                   key={index}
-                  className="flex gap-[16px] px-[14px] py-[7px] hover-accent cursor-pointer"
+                  className="flex gap-[16px] px-[18px] py-[10px] hover:bg-white/10 cursor-pointer transition-all duration-200 group"
                 >
                   <a
                     href={item.url}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="flex gap-[16px]"
+                    className="flex gap-[16px] items-center w-full"
                   >
-                    <img src={item.icon} alt="iconSetting" />
-                    <p className="text-[14px] font-[500]">{item.title}</p>
+                    <Icon 
+                      name={item.icon} 
+                      size={18}
+                      className="transition-transform duration-200 group-hover:scale-110 text-white"
+                    />
+                    <p className="text-[14px] font-[500] transition-colors duration-200 group-hover:text-accent">
+                      {item.title}
+                    </p>
                   </a>
                 </div>
               ))}

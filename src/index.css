@@ -3,36 +3,50 @@
 @tailwind utilities;
 
 :root {
-  /* Typography */
+  /* Typography - Minimalism 2.0: Larger, cleaner fonts */
   --font-display: "Sora", "Space Grotesk", system-ui, sans-serif;
   --font-body: "Inter", "Manrope", system-ui, sans-serif;
 
   /* Colors - Base */
-  --color-bg: #0f1116;
-  --color-surface: rgba(17, 24, 39, 0.6);
-  --color-ink: #f5f7fb;
-  --color-muted: #9aa3b2;
+  --color-bg: #0a0c10;
+  --color-surface: rgba(17, 24, 39, 0.4);
+  --color-ink: #f8fafc;
+  --color-muted: #94a3b8;
 
   /* Colors - Accent */
   --color-accent: #f1a45a;
   --color-accent-strong: #f6b36c;
+  --color-accent-hover: #ffb870;
 
   /* Colors - Theme Toggle */
-  --color-night: #10205f;
+  --color-night: #1e3a8a;
   --color-day: #f1a45a;
 
-  /* Shadows */
-  --shadow-soft: 0 10px 30px rgba(5, 10, 24, 0.35);
-  --shadow-elevated: 0 20px 60px rgba(5, 10, 24, 0.45);
+  /* Glassmorphism - 2026 Trend - Enhanced blur and transparency */
+  --glass-bg: rgba(15, 23, 42, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --backdrop-blur: blur(40px);
 
-  /* Border Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  /* Shadows - Enhanced depth */
+  --shadow-soft: 0 10px 30px rgba(5, 10, 24, 0.4);
+  --shadow-elevated: 0 20px 60px rgba(5, 10, 24, 0.5);
+  --shadow-glow: 0 0 20px rgba(241, 164, 90, 0.2);
+
+  /* Border Radius - Softer, modern */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
 
   /* Legacy colors for backward compatibility */
-  --color-menu-bg: #070707;
-  --color-rail: #4e5054;
+  --color-menu-bg: rgba(7, 7, 7, 0.85);
+  --color-rail: rgba(78, 80, 84, 0.5);
+
+  /* Transitions - Smooth micro-interactions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Night/Day theme overrides */
@@ -52,10 +66,52 @@
 
 html {
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
     overflow: hidden;
     background-color: var(--color-bg);
     color: var(--color-ink);
+}
+
+/* Glassmorphism utility classes */
+@layer utilities {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: var(--backdrop-blur);
+    -webkit-backdrop-filter: var(--backdrop-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .glass-strong {
+    background: rgba(15, 23, 42, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .glass-ultra {
+    background: rgba(15, 23, 42, 0.2);
+    backdrop-filter: blur(60px);
+    -webkit-backdrop-filter: blur(60px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  }
+
+  .hover-lift {
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .smooth-transition {
+    transition: all var(--transition-base);
+  }
 }
