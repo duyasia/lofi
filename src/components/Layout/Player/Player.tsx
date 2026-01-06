@@ -65,6 +65,9 @@ const Player: React.FC = () => {
         setCurrentSong(song[index + 1]);
       }
     }
+    // Reset progress when moving to next track
+    setCurrentTime(0);
+    setDuration(0);
     setPlaying(true);
   }, [song, currentSong.name, isShuffled]);
 
@@ -76,6 +79,9 @@ const Player: React.FC = () => {
     } else {
       setCurrentSong(song[index - 1]);
     }
+    // Reset progress when moving to previous track
+    setCurrentTime(0);
+    setDuration(0);
     setPlaying(true);
   }, [song, currentSong.name]);
 
@@ -87,7 +93,15 @@ const Player: React.FC = () => {
         audioRef.current.play();
       }
     } else if (repeatMode === "all") {
-      handleClickNext();
+      // If only one song in the list, just restart it
+      if (song.length <= 1) {
+        if (audioRef.current) {
+          audioRef.current.currentTime = 0;
+          audioRef.current.play();
+        }
+      } else {
+        handleClickNext();
+      }
     } else {
       // repeatMode === "none"
       const index = song.findIndex((x) => x.name === currentSong.name);
@@ -125,6 +139,25 @@ const Player: React.FC = () => {
       audioRef.current.volume = volumeSong / 100;
     }
   }, [volumeSong]);
+
+  // When the current song changes, ensure the audio element is reset
+  // and, if we are in playing state, start the new track automatically.
+  useEffect(() => {
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = 0;
+    setCurrentTime(0);
+    setDuration(0);
+
+    if (playing) {
+      const playPromise = audioRef.current.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {
+          // In case autoplay is blocked or fails, mark as not playing
+          setPlaying(false);
+        });
+      }
+    }
+  }, [currentSong, playing]);
 
   useEffect(() => {
     setCurrentSong(song[0]);
