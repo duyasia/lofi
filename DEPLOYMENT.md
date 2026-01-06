@@ -13,9 +13,12 @@ Chọn: **Nixpacks** (hoặc **Buildpacks**)
 
 ### 3. Install Command
 ```
-npm install
+npm install --legacy-peer-deps
 ```
-Hoặc để trống (Nixpacks/Buildpacks sẽ tự động chạy `npm install`)
+
+**QUAN TRỌNG**: Dự án sử dụng TypeScript 5.9.3 nhưng `react-scripts@5.0.1` yêu cầu TypeScript 4.x. 
+- File `.npmrc` đã được tạo với `legacy-peer-deps=true` để tự động xử lý conflict
+- Tuy nhiên, để đảm bảo trên EasyPanel, nên điền rõ: `npm install --legacy-peer-deps`
 
 ### 4. Build Command
 ```
@@ -73,12 +76,16 @@ npx serve -s build -l 4000
 ```
 Build Method: Nixpacks
 Version: 1.34.1
-Install Command: (để trống - tự động)
+Install Command: npm install --legacy-peer-deps
 Build Command: npm run build
 Start Command: npm run serve
 Nix Packages: (để trống)
 APT Packages: (để trống)
 ```
+
+**Lưu ý về lỗi dependency conflict:**
+- Nếu gặp lỗi `ERESOLVE could not resolve` với TypeScript, đảm bảo Install Command có `--legacy-peer-deps`
+- File `.npmrc` đã được tạo nhưng một số platform có thể không đọc file này trong quá trình build
 
 **Hoặc nếu EasyPanel có biến môi trường PORT:**
 ```
